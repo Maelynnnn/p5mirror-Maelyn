@@ -1,5 +1,20 @@
 # Sketches for Maelyn
-90 sketches  
+105 sketches  
+[greenface v3](https://editor.p5js.org/Maelyn/sketches/oRAHJX7Sj)<!-- 2025-04-04T14:56:08.319Z -->  
+[Mei-Name Writing](https://editor.p5js.org/Maelyn/sketches/KSGjY0PEt)<!-- 2025-04-04T14:03:23.909Z -->  
+[IMSE\_Tornado\_Ting copy](https://editor.p5js.org/Maelyn/sketches/KcSA0IOMLf)<!-- 2025-04-04T13:35:24.664Z -->  
+[greenface v2](https://editor.p5js.org/Maelyn/sketches/a49m87_MV)<!-- 2025-04-04T02:01:23.452Z -->  
+[greenface v4](https://editor.p5js.org/Maelyn/sketches/WCPM4XE2A)<!-- 2025-04-04T01:53:37.442Z -->  
+[greenface v1](https://editor.p5js.org/Maelyn/sketches/1btIlJ-pX)<!-- 2025-04-04T01:37:47.194Z -->  
+[CC 24 Perlin Noise Flow Field copy](https://editor.p5js.org/Maelyn/sketches/vCK_eprV2)<!-- 2025-04-03T05:48:14.739Z -->  
+[smile detect](https://editor.p5js.org/Maelyn/sketches/n24K7JQ6I)<!-- 2025-04-02T18:26:43.712Z -->  
+[Comet candytuft](https://editor.p5js.org/Maelyn/sketches/v76pQnGV4)<!-- 2025-04-01T02:49:56.531Z -->  
+[女孩背包](https://editor.p5js.org/Maelyn/sketches/bQYvhMbjR)<!-- 2025-03-31T21:04:54.986Z -->  
+[bodySegmentation-mask-body-parts copy](https://editor.p5js.org/Maelyn/sketches/qU9tGfn0N)<!-- 2025-03-30T22:24:53.394Z -->  
+[cc 3.21 inclass ml5 image classification with webcam](https://editor.p5js.org/Maelyn/sketches/imwYi-_r3)<!-- 2025-03-30T21:55:27.908Z -->  
+[2025.3.21 inclass webcam](https://editor.p5js.org/Maelyn/sketches/JC0w97VGw)<!-- 2025-03-21T21:58:59.130Z -->  
+[cc 3.21 inclass ml5](https://editor.p5js.org/Maelyn/sketches/N_S1ix5lt)<!-- 2025-03-21T21:48:32.525Z -->  
+[cc 3.21 inclass](https://editor.p5js.org/Maelyn/sketches/VPsZdwL3S)<!-- 2025-03-21T21:36:41.145Z -->  
 [particle light](https://editor.p5js.org/Maelyn/sketches/M5qDpdiGr)<!-- 2025-03-21T14:05:17.958Z -->  
 [particle light copy](https://editor.p5js.org/Maelyn/sketches/HC572veKR)<!-- 2025-03-21T13:44:33.908Z -->  
 [GPT light 2](https://editor.p5js.org/Maelyn/sketches/3mge1-Brj)<!-- 2025-03-21T01:51:13.149Z -->  

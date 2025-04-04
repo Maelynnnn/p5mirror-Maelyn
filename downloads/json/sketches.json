@@ -599,6 +599,63 @@
     "id": "zZrx0Gpqk"
   },
   {
+    "_id": "JC0w97VGw",
+    "name": "2025.3.21 inclass webcam",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67dddeb54c267b113be22d4f",
+          "67dddeb54c267b113be22d4e",
+          "67dddeb54c267b113be22d50"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67dddeb54c267b113be22d51",
+        "createdAt": "2025-03-21T21:58:59.129Z",
+        "updatedAt": "2025-03-21T21:58:59.129Z",
+        "id": "67dddeb54c267b113be22d51"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let video;\n\nfunction setup() {\n  createCanvas(400, 400);\n  video = createCapture(VIDEO);\n  video.hide();\n}\n\nfunction draw() {\n  background(220);\n  image(video, 0, 0, width, height, 0, 0,video.width, video.height, COVER);\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67dddeb54c267b113be22d4e",
+        "createdAt": "2025-03-21T21:58:59.130Z",
+        "updatedAt": "2025-03-21T21:58:59.130Z",
+        "id": "67dddeb54c267b113be22d4e"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddeb54c267b113be22d4f",
+        "createdAt": "2025-03-21T21:58:59.130Z",
+        "updatedAt": "2025-03-21T21:58:59.130Z",
+        "id": "67dddeb54c267b113be22d4f"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddeb54c267b113be22d50",
+        "createdAt": "2025-03-21T21:58:59.130Z",
+        "updatedAt": "2025-03-21T21:58:59.130Z",
+        "id": "67dddeb54c267b113be22d50"
+      }
+    ],
+    "updatedAt": "2025-03-21T21:58:59.130Z",
+    "createdAt": "2025-03-21T21:58:59.130Z",
+    "id": "JC0w97VGw"
+  },
+  {
     "_id": "aHmLOV_uZ",
     "name": "3.14 Assignment",
     "files": [
@@ -955,6 +1012,158 @@
     "id": "0TD5VT5wE"
   },
   {
+    "_id": "bQYvhMbjR",
+    "name": "女孩背包",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67eaf7534c267b113be22d5c",
+          "67eaf7534c267b113be22d5b",
+          "67eaf7534c267b113be22d5d",
+          "67eafd4b4c267b113be22d62",
+          "67eafa234c267b113be22d60"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67eaf7534c267b113be22d5e",
+        "createdAt": "2025-03-31T21:04:54.986Z",
+        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "id": "67eaf7534c267b113be22d5e"
+      },
+      {
+        "name": "sketch.js",
+        "content": "const serial = new p5.WebSerial();\n\nlet drop_speed = 2;\nlet up_speed = 35;\nlet ball_h;\nlet girl;\nlet bag;\nlet limit;\nlet pressing = false;\n\n \n// HTML button object:\nlet portButton;\nlet inData;                   // for incoming serial data\nlet outByte = 0;              // for outgoing data\n\nfunction preload(){\n  girl = loadImage(\"女孩背影.png\");\n  bag = loadImage(\"书包.png\");\n  \n}\nfunction setup() {\n  createCanvas(windowWidth, windowHeight);\n  ball_h = windowHeight;\n  limit = windowHeight / 7;\n  \n  if (!navigator.serial) {\n    alert(\"WebSerial is not supported in this browser. Try Chrome or MS Edge.\");\n  }\n  // if serial is available, add connect/disconnect listeners:\n  navigator.serial.addEventListener(\"connect\", portConnect);\n  navigator.serial.addEventListener(\"disconnect\", portDisconnect);\n  // check for any ports that are available:\n  serial.getPorts();\n  // if there's no port chosen, choose one:\n  serial.on(\"noport\", makePortButton);\n  // open whatever port is available:\n  serial.on(\"portavailable\", openPort);\n  // handle serial errors:\n  serial.on(\"requesterror\", portError);\n  // handle any incoming serial data:\n  serial.on(\"data\", serialEvent);\n  serial.on(\"close\", makePortButton);\n}\n\nfunction draw() {\n  background(220);\n  image(girl, windowWidth / 400, -200);\n  image(bag, width/ 3.5, ball_h);\n  if(ball_h >= height || ball_h <= limit){\n    drop_speed = 0;\n  }else{\n    drop_speed = 2;\n    ball_h += drop_speed;\n  }\n\n  if(ball_h <= limit){\n    up_speed = 0;\n  }\n  \n  if(inData == 1 && pressing == false){\n    ball_h -= up_speed;\n    pressing = true;\n  }\n  if (inData == 0) {\n    pressing = false;\n  }\n // line(0, limit, windowWidth, limit);\n}\nfunction makePortButton() {\n  // create and position a port chooser button:\n  portButton = createButton(\"choose port\");\n  portButton.position(10, 10);\n  // give the port button a mousepressed handler:\n  portButton.mousePressed(choosePort);\n}\n \n// make the port selector window appear:\nfunction choosePort() {\n  if (portButton) portButton.show();\n  serial.requestPort();\n}\n \n// open the selected port, and make the port \n// button invisible:\nfunction openPort() {\n  // wait for the serial.open promise to return,\n  // then call the initiateSerial function\n  serial.open().then(initiateSerial);\n \n  // once the port opens, let the user know:\n  function initiateSerial() {\n    console.log(\"port open\");\n  }\n  // hide the port button once a port is chosen:\n  // if (portButton) portButton.hide();\n}\n \n// pop up an alert if there's a port error:\nfunction portError(err) {\n  alert(\"Serial port error: \" + err);\n}\n// read any incoming data as a byte\nfunction serialEvent() {\n  // read one byte of data and store the raw data in inData\n  inData = serial.read();\n  // convert raw data to a number\n  //redValue = Number(inData);\n  // only use console.log for debugging\n  // remove it after testing, otherwise console.log will\n  // slow down or even crash the sketch\n  // console.log(inData);\n}\n \n// try to connect if a new serial port \n// gets added (i.e. plugged in via USB):\nfunction portConnect() {\n  console.log(\"port connected\");\n  serial.getPorts();\n}\n \n// if a port is disconnected:\nfunction portDisconnect() {\n  serial.close();\n  console.log(\"port disconnected\");\n}\n \nfunction closePort() {\n  serial.close();\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67eaf7534c267b113be22d5b",
+        "createdAt": "2025-03-31T21:04:54.986Z",
+        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "id": "67eaf7534c267b113be22d5b"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js\"></script>\n    <script src=\"https://unpkg.com/p5-webserial@0.1.1/build/p5.webserial.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eaf7534c267b113be22d5c",
+        "createdAt": "2025-03-31T21:04:54.986Z",
+        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "id": "67eaf7534c267b113be22d5c"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eaf7534c267b113be22d5d",
+        "createdAt": "2025-03-31T21:04:54.986Z",
+        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "id": "67eaf7534c267b113be22d5d"
+      },
+      {
+        "name": "女孩背影.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/0acb853a-110f-4705-b2dd-af1048c041c5.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eafa234c267b113be22d60",
+        "createdAt": "2025-03-31T21:04:54.986Z",
+        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "id": "67eafa234c267b113be22d60"
+      },
+      {
+        "name": "书包.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/3fbcff87-339f-4af0-8613-6b40e2363ee5.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eafd4b4c267b113be22d62",
+        "createdAt": "2025-03-31T21:04:54.986Z",
+        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "id": "67eafd4b4c267b113be22d62"
+      }
+    ],
+    "updatedAt": "2025-03-31T21:04:54.986Z",
+    "createdAt": "2025-03-31T20:39:24.065Z",
+    "id": "bQYvhMbjR"
+  },
+  {
+    "_id": "qU9tGfn0N",
+    "name": "bodySegmentation-mask-body-parts copy",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67e99a7b2a56874f285e4fb7",
+          "67e9b92a1e00e663a8840ae5",
+          "67e99a7b2a56874f285e4fb8",
+          "67e9b98c4965eb6a08b5da64"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67e99a7b2a56874f285e4fb6",
+        "createdAt": "2025-03-30T22:24:53.394Z",
+        "updatedAt": "2025-03-30T22:24:53.394Z",
+        "id": "67e99a7b2a56874f285e4fb6"
+      },
+      {
+        "name": "index.html",
+        "content": "<!--\n  👋 Hello! This is an ml5.js example made and shared with ❤️.\n  Learn more about the ml5.js project: https://ml5js.org/\n  ml5.js license and Code of Conduct: https://github.com/ml5js/ml5-next-gen/blob/main/LICENSE.md\n\n  This example demonstrates segmenting a person by body parts with ml5.bodySegmentation.\n-->\n\n<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>ml5.js bodySegmentation Parts Example</title>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n  </head>\n  <body>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67e99a7b2a56874f285e4fb7",
+        "createdAt": "2025-03-30T22:24:53.394Z",
+        "updatedAt": "2025-03-30T22:24:53.394Z",
+        "id": "67e99a7b2a56874f285e4fb7"
+      },
+      {
+        "name": "sketch.js",
+        "content": "/*\n * 👋 Hello! This is an ml5.js example made and shared with ❤️.\n * Learn more about the ml5.js project: https://ml5js.org/\n * ml5.js license and Code of Conduct: https://github.com/ml5js/ml5-next-gen/blob/main/LICENSE.md\n *\n * This example demonstrates segmenting a person by body parts with ml5.bodySegmentation.\n */\n\nlet bodypix;\nlet video;\nlet segmentation;\n\nvar inc = 0.1;\nvar scl = 10;\nvar cols, rows;\n\nvar zoff = 0;\nvar fr;\nvar particles = [];\nvar flowfield;\n\n\nlet options = {\n  outputStride:16,\n  segmentationThreshold: 0.3\n};\n\nfunction preload() {\n  bodypix = ml5.bodySegmentation(\"BodyPix\", options);\n}\n\nfunction setup() {\n  createCanvas(640, 480);\n  // Create the video\n  video = createCapture(VIDEO);\n  video.size(640, 480);\n  video.hide();\n  //bodySegmentation.detectStart(video, gotResults);\n  \n  cols = floor(width / scl);\n  rows = floor(height / scl);\n  fr = createP('');\n\n  flowfield = new Array(cols * rows);\n\n  for (var i = 0; i < 300; i++) {\n    particles[i] = new Particle();\n  }\n  \n}\n\nfunction videoReady(){\n  bodypix.segment(video,gotResults);\n}\n\nfunction draw() {\n  //background(255);\n  image(video, 0, 0);\n  if (segmentation) {\n    tint(0, 0, 0, 100);\n    image(segmentation.mask, 0, 0, width, height);\n    noTint();\n  }\n  drawNoise();\n}\n\n\n// callback function for body segmentation\nfunction gotResults(result) {\n  segmentation = result;\n  bodypix.segment(video,gotResults);\n}\n\n\nfunction drawNoise(){\n  var yoff = 0;\n  for (var y = 0; y < rows; y++) {\n    var xoff = 0;\n    for (var x = 0; x < cols; x++) {\n      var index = x + y * cols;\n      var angle = noise(xoff, yoff, zoff) * TWO_PI * 4;\n      var v = p5.Vector.fromAngle(angle);\n      v.setMag(1);\n      flowfield[index] = v;\n      xoff += inc;\n      stroke(0, 50);\n    }\n    yoff += inc;\n\n    zoff += 0.0003;\n  }\n\n  for (var i = 0; i < particles.length; i++) {\n    particles[i].follow(flowfield);\n    particles[i].update();\n    particles[i].edges();\n    particles[i].show();\n  }\n}\n\n\nclass Particle {\n  constructor() {\n    this.pos = createVector(random(width), random(height));\n    this.vel = createVector(0, 0);\n    this.acc = createVector(0, 0);\n    this.maxspeed = 4;\n    this.prevPos = this.pos.copy();\n  }\n\n  update() {\n    this.vel.add(this.acc);\n    this.vel.limit(this.maxspeed);\n    this.pos.add(this.vel);\n    this.acc.mult(0);\n  }\n\n  follow(vectors) {\n    var x = floor(this.pos.x / scl);\n    var y = floor(this.pos.y / scl);\n    var index = x + y * cols;\n    var force = vectors[index];\n    this.applyForce(force);\n  }\n\n  applyForce(force) {\n    this.acc.add(force);\n  }\n\n  show() {\n    stroke(255, 10);\n    strokeWeight(1);\n    line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);\n    this.updatePrev();\n  }\n\n  updatePrev() {\n    this.prevPos.x = this.pos.x;\n    this.prevPos.y = this.pos.y;\n  }\n\n  edges() {\n    if (this.pos.x > width) {\n      this.pos.x = 0;\n      this.updatePrev();\n    }\n    if (this.pos.x < 0) {\n      this.pos.x = width;\n      this.updatePrev();\n    }\n    if (this.pos.y > height) {\n      this.pos.y = 0;\n      this.updatePrev();\n    }\n    if (this.pos.y < 0) {\n      this.pos.y = height;\n      this.updatePrev();\n    }\n\n  }\n\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67e99a7b2a56874f285e4fb8",
+        "createdAt": "2025-03-30T22:24:53.394Z",
+        "updatedAt": "2025-03-30T22:24:53.394Z",
+        "id": "67e99a7b2a56874f285e4fb8"
+      },
+      {
+        "name": "particle.js",
+        "content": "// Daniel Shiffman\n// http://codingtra.in\n// http://patreon.com/codingtrain\n// Code for: https://youtu.be/BjoM9oKOAKY\n\nclass Particle {\n  constructor() {\n    this.pos = createVector(random(width), random(height));\n    this.vel = createVector(0, 0);\n    this.acc = createVector(0, 0);\n    this.maxspeed = 4;\n    this.prevPos = this.pos.copy();\n  }\n\n  update() {\n    this.vel.add(this.acc);\n    this.vel.limit(this.maxspeed);\n    this.pos.add(this.vel);\n    this.acc.mult(0);\n  }\n\n  follow(vectors) {\n    var x = floor(this.pos.x / scl);\n    var y = floor(this.pos.y / scl);\n    var index = x + y * cols;\n    var force = vectors[index];\n    this.applyForce(force);\n  }\n\n  applyForce(force) {\n    this.acc.add(force);\n  }\n\n  show() {\n    stroke(255, 10);\n    strokeWeight(1);\n    line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);\n    this.updatePrev();\n  }\n\n  updatePrev() {\n    this.prevPos.x = this.pos.x;\n    this.prevPos.y = this.pos.y;\n  }\n\n  edges() {\n    if (this.pos.x > width) {\n      this.pos.x = 0;\n      this.updatePrev();\n    }\n    if (this.pos.x < 0) {\n      this.pos.x = width;\n      this.updatePrev();\n    }\n    if (this.pos.y > height) {\n      this.pos.y = 0;\n      this.updatePrev();\n    }\n    if (this.pos.y < 0) {\n      this.pos.y = height;\n      this.updatePrev();\n    }\n\n  }\n\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67e9b92a1e00e663a8840ae5",
+        "createdAt": "2025-03-30T22:24:53.394Z",
+        "updatedAt": "2025-03-30T22:24:53.394Z",
+        "id": "67e9b92a1e00e663a8840ae5"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67e9b98c4965eb6a08b5da64",
+        "createdAt": "2025-03-30T22:24:53.394Z",
+        "updatedAt": "2025-03-30T22:24:53.394Z",
+        "id": "67e9b98c4965eb6a08b5da64"
+      }
+    ],
+    "createdAt": "2025-03-30T19:24:43.375Z",
+    "updatedAt": "2025-03-30T22:24:53.394Z",
+    "id": "qU9tGfn0N"
+  },
+  {
     "_id": "t_XjzIDMWl",
     "name": "Cabana! - Worley Noise Port copy copy",
     "files": [
@@ -1007,6 +1216,454 @@
     "createdAt": "2025-03-14T14:57:02.001Z",
     "updatedAt": "2025-03-14T14:57:05.252Z",
     "id": "t_XjzIDMWl"
+  },
+  {
+    "_id": "vCK_eprV2",
+    "name": "CC 24 Perlin Noise Flow Field copy",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67ee21142f2b7c463a9ed9fe",
+          "67ee211916d0ac763581cc0e",
+          "67ee21142f2b7c463a9ed9ff",
+          "67ee21142f2b7c463a9eda00",
+          "67ee21142f2b7c463a9eda01"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67ee21142f2b7c463a9ed9fd",
+        "createdAt": "2025-04-03T05:48:14.739Z",
+        "updatedAt": "2025-04-03T05:48:14.739Z",
+        "id": "67ee21142f2b7c463a9ed9fd"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let video;\nlet faceMesh;\nlet faces = [];\nlet triangles;\nlet spreading = false;\nlet spreadRadius = 200; // 初始扩散范围（建议值，可根据实际脸部尺寸调整）\nlet faceCenter;\nlet smile = 70;\n\nvar inc = 0.1;\nvar scl = 10;\nvar cols, rows;\nvar zoff = 0;\nvar fr;\nvar particles = [];\nvar flowfield;\n\nfunction preload() {\n  // 加载 FaceMesh 模型，最多检测1张脸，翻转视频输入\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n  mirror= loadImage(\"mirror.png\");\n}\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(600,800);\n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  // 开始检测脸部\n  faceMesh.detectStart(video, gotFaces);\n  // 获取预定义的三角连接数据\n  triangles = faceMesh.getTriangles();\n  \n  cols = floor(width / scl);\n  rows = floor(height / scl);\n  fr = createP('');\n\n  flowfield = new Array(cols * rows);\n\n  for (var i = 0; i < 300; i++) {\n    particles[i] = new Particle();\n  }\n}\n\nfunction draw() {\n  background(0);\n  image(mirror, 0, 0);\n  video.loadPixels();\n\n  if (faces.length > 0) {\n    let face = faces[0];\n    \n    // 计算脸部中心（所有关键点的平均值）\n    let sumX = 0, sumY = 0;\n    for (let kp of face.keypoints) {\n      sumX += kp.x;\n      sumY += kp.y;\n    }\n    faceCenter = createVector(sumX / face.keypoints.length, sumY / face.keypoints.length);\n    \n    // 获取嘴角数据，用于切换蔓延状态\n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x, rightMouth.y);\n    console.log(d)\n    \n    \n    let maxD = 0;\n    for (let kp of face.keypoints) {\n      let curD = dist(kp.x, kp.y, faceCenter.x, faceCenter.y);\n      if (curD > maxD) {\n        maxD = curD + 80;\n        //spreadRadius = maxD;\n      }\n    }\n    \n    // 使用逻辑与 && 来判断\n    if (d >= smile && !spreading) {\n      // 如果嘴角距离较大且未开启蔓延，则开启蔓延，重置 spreadRadius\n      spreading = true;\n      spreadRadius = maxD;\n      flame();\n    }\n    if (d < smile && spreading) {\n      // 如果嘴角距离较小且正在蔓延，则关闭效果\n      spreading = false;\n    }\n    \n    \n    // 根据蔓延状态更新 spreadRadius：\n    if (spreading) {\n      // 开启效果时，逐帧减少 spreadRadius，使得绿色区域逐渐扩展向内\n      spreadRadius = max(spreadRadius - 2, 0);\n    } else {\n      // 关闭效果时，逐帧增加 spreadRadius，最多不超过 maxD，从而逐渐恢复原色\n      spreadRadius = min(spreadRadius + 2, maxD);\n    }\n    \n    randomSeed(5);\n    beginShape(TRIANGLES);\n    for (let i = 0; i < triangles.length; i++) {\n      let tri = triangles[i];\n      let [a, b, c] = tri;\n      let pointA = face.keypoints[a];\n      let pointB = face.keypoints[b];\n      let pointC = face.keypoints[c];\n\n      // 计算三角形的中心\n      let cx = (pointA.x + pointB.x + pointC.x) / 3;\n      let cy = (pointA.y + pointB.y + pointC.y) / 3;\n      \n      // 从视频像素中采样颜色\n      let indexPixel = (floor(cx) + floor(cy) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      let baseColor = color(rr, gg, bb);\n      \n      // 计算三角形中心到脸部中心的距离\n      let everyD = dist(faceCenter.x, faceCenter.y, cx, cy) + 50;\n      let factor = map(everyD, spreadRadius, maxD, 0, 2, true);\n\n      let finalColor = lerpColor(baseColor, color(0, 200, 0), factor);\n      fill(finalColor); \n     \n      \n      \n      noStroke();\n      vertex(pointA.x, pointA.y);\n      vertex(pointB.x, pointB.y);\n      vertex(pointC.x, pointC.y);\n    }\n    endShape();\n  }\n}\n\nfunction flame(){\n  var yoff = 0;\n  for (var y = 0; y < rows; y++) {\n    var xoff = 0;\n    for (var x = 0; x < cols; x++) {\n      var index = x + y * cols;\n      var angle = noise(xoff, yoff, zoff) * TWO_PI * 4;\n      var v = p5.Vector.fromAngle(angle);\n      v.setMag(1);\n      flowfield[index] = v;\n      xoff += inc;\n      stroke(0, 50);\n      // push();\n      // translate(x * scl, y * scl);\n      // rotate(v.heading());\n      // strokeWeight(1);\n      // line(0, 0, scl, 0);\n      // pop();\n    }\n    yoff += inc;\n\n    zoff += 0.0003;\n  }\n\n  for (var i = 0; i < particles.length; i++) {\n    particles[i].follow(flowfield);\n    particles[i].update();\n    particles[i].edges();\n    particles[i].show();\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67ee21142f2b7c463a9eda00",
+        "createdAt": "2025-04-03T05:48:14.739Z",
+        "updatedAt": "2025-04-03T05:48:14.739Z",
+        "id": "67ee21142f2b7c463a9eda00"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html>\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <script src=\"particle.js\"></script>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee21142f2b7c463a9ed9fe",
+        "createdAt": "2025-04-03T05:48:14.739Z",
+        "updatedAt": "2025-04-03T05:48:14.739Z",
+        "id": "67ee21142f2b7c463a9ed9fe"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee21142f2b7c463a9eda01",
+        "createdAt": "2025-04-03T05:48:14.739Z",
+        "updatedAt": "2025-04-03T05:48:14.739Z",
+        "id": "67ee21142f2b7c463a9eda01"
+      },
+      {
+        "name": "particle.js",
+        "content": "// Daniel Shiffman\n// http://codingtra.in\n// http://patreon.com/codingtrain\n// Code for: https://youtu.be/BjoM9oKOAKY\n\nclass Particle {\n  constructor() {\n    this.pos = createVector(random(width), random(height));\n    this.vel = createVector(0, 0);\n    this.acc = createVector(0, 0);\n    this.maxspeed = 4;\n    this.prevPos = this.pos.copy();\n  }\n\n  update() {\n    this.vel.add(this.acc);\n    this.vel.limit(this.maxspeed);\n    this.pos.add(this.vel);\n    this.acc.mult(0);\n  }\n\n  follow(vectors) {\n    var x = floor(this.pos.x / scl);\n    var y = floor(this.pos.y / scl);\n    var index = x + y * cols;\n    var force = vectors[index];\n    this.applyForce(force);\n  }\n\n  applyForce(force) {\n    this.acc.add(force);\n  }\n\n  show() {\n    stroke(255, 10);\n    strokeWeight(1);\n    line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);\n    this.updatePrev();\n  }\n\n  updatePrev() {\n    this.prevPos.x = this.pos.x;\n    this.prevPos.y = this.pos.y;\n  }\n\n  edges() {\n    if (this.pos.x > width) {\n      this.pos.x = 0;\n      this.updatePrev();\n    }\n    if (this.pos.x < 0) {\n      this.pos.x = width;\n      this.updatePrev();\n    }\n    if (this.pos.y > height) {\n      this.pos.y = 0;\n      this.updatePrev();\n    }\n    if (this.pos.y < 0) {\n      this.pos.y = height;\n      this.updatePrev();\n    }\n\n  }\n\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee21142f2b7c463a9ed9ff",
+        "createdAt": "2025-04-03T05:48:14.739Z",
+        "updatedAt": "2025-04-03T05:48:14.739Z",
+        "id": "67ee21142f2b7c463a9ed9ff"
+      },
+      {
+        "name": "mirror.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/b412325f-2385-476e-84d1-23867994b491.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee211916d0ac763581cc0e",
+        "createdAt": "2025-04-03T05:48:14.739Z",
+        "updatedAt": "2025-04-03T05:48:14.739Z",
+        "id": "67ee211916d0ac763581cc0e"
+      }
+    ],
+    "createdAt": "2025-04-03T05:48:04.520Z",
+    "updatedAt": "2025-04-03T05:48:14.739Z",
+    "id": "vCK_eprV2"
+  },
+  {
+    "_id": "VPsZdwL3S",
+    "name": "cc 3.21 inclass",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67ddd3ea58c0c5fd77d55e52",
+          "67ddcff658c0c5fd77d37a26",
+          "67ddd52ef5859713c6837fc1",
+          "67ddcf564c267b113be22d42",
+          "67ddd299f5859713c682a307",
+          "67ddd467299ff76f18e325be",
+          "67ddcf564c267b113be22d41",
+          "67ddcf564c267b113be22d43"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67ddcf564c267b113be22d44",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddcf564c267b113be22d44"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let sound;\nlet soundPlayed = false;\nlet scaleSpeed= 0.005;\nlet scaleNumb = 0;\n\nlet classifier;\n\nfunction preload(){\n  sound = loadSound(\"only you.MP3\");\n  beauty = loadImage(\"beauty.png\");\n  shuai = loadImage(\"shuai.png\");\n  heart = loadImage(\"heart.png\");\n  classifier = ml5.imageClassifier(\"MobileNet\");\n}\n\nfunction setup() {\n  createCanvas(800, 400);\n  classifier.classify(shuai, gotResults );\n}\n\nfunction gotResults(results){\n  console.log(results);\n}\n\nfunction draw() {\n  background(248, 150, 30);\n  push();\n  pop();\n  if(mouseX < 400){\n    //fill(255,0,0);\n    push();\n    translate(400,200);\n    imageMode(CENTER);\n    scale(scaleNumb);\n    image(heart, 0,0);\n    scaleNumb += scaleSpeed;\n    pop();\n    \n    if(soundPlayed == false){\n      sound.play();\n      soundPlayed = true;\n    }\n  }else{\n    //fill(255);\n    soundPlayed = false;\n    sound.stop();\n    scaleNumb = 0;\n  }\n  \n  //circle(mouseX,mouseY,100);\n  image(shuai, mouseX - 100, mouseY - 100);\n  \n  image(beauty, 0, 0);\n}\nfunction mousePressed(){\n  sound.play();\n  //sound.loop();\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67ddcf564c267b113be22d41",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddcf564c267b113be22d41"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ddcf564c267b113be22d42",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddcf564c267b113be22d42"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ddcf564c267b113be22d43",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddcf564c267b113be22d43"
+      },
+      {
+        "name": "ding.wav",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/b8538ef0-2a53-42c4-92b0-3dfc5bb29877.wav",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ddcff658c0c5fd77d37a26",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddcff658c0c5fd77d37a26"
+      },
+      {
+        "name": "only you.MP3",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/afa5bfab-1264-4fea-884e-14be074ff930.MP3",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ddd299f5859713c682a307",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddd299f5859713c682a307"
+      },
+      {
+        "name": "beauty.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/13875371-e28a-4640-99e5-0eeb230c8f2a.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ddd3ea58c0c5fd77d55e52",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddd3ea58c0c5fd77d55e52"
+      },
+      {
+        "name": "shuai.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/ad0fb9a2-d335-4b6f-b40e-dd41bbeeccbf.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ddd467299ff76f18e325be",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddd467299ff76f18e325be"
+      },
+      {
+        "name": "heart.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/22cd17f5-0344-47e5-9c04-197846ae32f1.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ddd52ef5859713c6837fc1",
+        "createdAt": "2025-03-21T21:36:41.145Z",
+        "updatedAt": "2025-03-21T21:36:41.145Z",
+        "id": "67ddd52ef5859713c6837fc1"
+      }
+    ],
+    "updatedAt": "2025-03-21T21:36:41.145Z",
+    "createdAt": "2025-03-21T20:43:37.203Z",
+    "id": "VPsZdwL3S"
+  },
+  {
+    "_id": "N_S1ix5lt",
+    "name": "cc 3.21 inclass ml5",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67dddc494c267b113be22d46",
+          "67dddc494c267b113be22d47",
+          "67dddc494c267b113be22d48",
+          "67dddc494c267b113be22d49",
+          "67dddc494c267b113be22d4a",
+          "67dddc494c267b113be22d4b",
+          "67dddc494c267b113be22d4c",
+          "67dddc494c267b113be22d4d"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d45",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d45"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let beauty;\nlet classifier;\nlet label = 'hi';\n\nfunction preload(){\n\n  beauty = loadImage(\"beauty.png\");\n\n  classifier = ml5.imageClassifier(\"MobileNet\");\n}\n\nfunction setup() {\n  createCanvas(400, 400);\n  classifier.classify(beauty, gotResults );\n}\n\nfunction gotResults(results){\n  console.log(results);\n  label = results[0].label;\n}\n\nfunction draw() {\n  background(248, 150, 30);\n  image(beauty, 10, 0);\n  textAlign(CENTER, CENTER);\n  textSize(30);\n  text(label, width - 50, 50)\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67dddc494c267b113be22d4c",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d4c"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d49",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d49"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d4d",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d4d"
+      },
+      {
+        "name": "ding.wav",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/dc61e643-7236-42df-b53a-ff1e8322f574.wav",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d47",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d47"
+      },
+      {
+        "name": "only you.MP3",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/99a85182-6c23-46ef-857a-0d8b5db28bc1.MP3",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d4a",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d4a"
+      },
+      {
+        "name": "beauty.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/ebd4a70a-ecfa-40d0-9d8f-6663b5853308.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d46",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d46"
+      },
+      {
+        "name": "shuai.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/34dc80e1-611d-4636-93f3-fab217bbec00.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d4b",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d4b"
+      },
+      {
+        "name": "heart.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/54d0da37-dc95-4a34-a829-fddc07bf8a10.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dddc494c267b113be22d48",
+        "createdAt": "2025-03-21T21:48:32.525Z",
+        "updatedAt": "2025-03-21T21:48:32.525Z",
+        "id": "67dddc494c267b113be22d48"
+      }
+    ],
+    "createdAt": "2025-03-21T21:38:19.619Z",
+    "updatedAt": "2025-03-21T21:48:32.525Z",
+    "id": "N_S1ix5lt"
+  },
+  {
+    "_id": "imwYi-_r3",
+    "name": "cc 3.21 inclass ml5 image classification with webcam",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67dde1394c267b113be22d53",
+          "67dde1394c267b113be22d54",
+          "67dde1394c267b113be22d55",
+          "67dde1394c267b113be22d56",
+          "67dde1394c267b113be22d57",
+          "67dde1394c267b113be22d58",
+          "67dde1394c267b113be22d59",
+          "67dde1394c267b113be22d5a"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d52",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d52"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let beauty;\nlet classifier;\nlet label = 'hi';\n\nfunction preload(){\n\n  //beauty = loadImage(\"beauty.png\");\n  beauty = createCapture(VIDEO, { flipped : true});\n\n  classifier = ml5.imageClassifier(\"MobileNet\");\n}\n\nfunction setup() {\n  createCanvas(600, 400);\n  classifier.classifyStart(beauty, gotResults );\n  beauty.hide();\n}\n\nfunction gotResults(results){\n  //console.log(results);\n  label = results[0].label;\n}\n\nfunction draw() {\n  background(248, 150, 30);\n  image(beauty, 0, 0);\n  textAlign(CENTER, CENTER);\n  textSize(30);\n  text(label, width/2, 50)\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67dde1394c267b113be22d59",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d59"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d56",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d56"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d5a",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d5a"
+      },
+      {
+        "name": "ding.wav",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/2b1d7c07-f52b-42b9-83a9-308c5321d67d.wav",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d54",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d54"
+      },
+      {
+        "name": "only you.MP3",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/3a7355f7-4dd0-4d52-9eb3-c1b381562219.MP3",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d57",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d57"
+      },
+      {
+        "name": "beauty.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/20d8b248-04bb-4f99-bf7d-92538421aa71.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d53",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d53"
+      },
+      {
+        "name": "shuai.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/917f6868-714e-492b-9b43-d8797b867dae.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d58",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d58"
+      },
+      {
+        "name": "heart.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/344cda5b-d9c8-497d-b755-22cf44612801.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67dde1394c267b113be22d55",
+        "createdAt": "2025-03-30T21:55:27.908Z",
+        "updatedAt": "2025-03-30T21:55:27.908Z",
+        "id": "67dde1394c267b113be22d55"
+      }
+    ],
+    "createdAt": "2025-03-21T21:59:23.317Z",
+    "updatedAt": "2025-03-30T21:55:27.908Z",
+    "id": "imwYi-_r3"
   },
   {
     "_id": "fm8QCAED9",
@@ -1449,6 +2106,63 @@
     ],
     "createdAt": "2024-03-21T03:20:04.021Z",
     "id": "5MxTs-HQO"
+  },
+  {
+    "_id": "v76pQnGV4",
+    "name": "Comet candytuft",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67eb10624c267b113be22d64",
+          "67eb10624c267b113be22d63",
+          "67eb10624c267b113be22d65"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67eb10624c267b113be22d66",
+        "createdAt": "2025-04-01T02:49:56.531Z",
+        "updatedAt": "2025-04-01T02:49:56.531Z",
+        "id": "67eb10624c267b113be22d66"
+      },
+      {
+        "name": "sketch.js",
+        "content": "// 从 CDN 导入 YOHA 的 ES 模块版本\nimport YOHA from 'https://unpkg.com/@handtracking.io/yoha/dist/yoha.esm.js';\n\nlet yoha;       // YOHA 实例\nlet video;      // p5.js 视频捕捉对象\nlet hands = []; // 存储检测到的手部数据\n\nfunction setup() {\n  createCanvas(640, 480);\n  \n  // 创建视频捕捉（使用 p5.js）\n  video = createCapture(VIDEO);\n  video.size(640, 480);\n  video.hide();\n  \n  // 初始化 YOHA，将 video.elt（底层 HTMLVideoElement）作为输入\n  yoha = new YOHA({\n    video: video.elt,\n    maxHands: 2, // 可选参数，设置最多检测的手数\n    // 你还可以根据需要传入其他配置选项\n  });\n  \n  // 注册检测结果回调\n  yoha.onResults(results => {\n    hands = results.hands || [];\n    console.log(\"检测到手部数据：\", hands);\n  });\n  \n  // 启动 YOHA 检测\n  yoha.start().then(() => {\n    console.log(\"YOHA 检测启动成功\");\n  }).catch(e => {\n    console.error(\"YOHA 检测启动失败：\", e);\n  });\n}\n\nfunction draw() {\n  background(220);\n  // 绘制视频画面\n  image(video, 0, 0, width, height);\n  \n  console.log(\"hh\");\n  \n  // 绘制检测到的手部关键点\n  for (let hand of hands) {\n    // 假设每只手有一个 keypoints 数组，包含每个关键点的 x, y 坐标\n    for (let point of hand.keypoints) {\n      fill(255, 0, 0);\n      noStroke();\n      ellipse(point.x, point.y, 10, 10);\n    }\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67eb10624c267b113be22d63",
+        "createdAt": "2025-04-01T02:49:56.531Z",
+        "updatedAt": "2025-04-01T02:49:56.531Z",
+        "id": "67eb10624c267b113be22d63"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <!-- 依然可以单独加载 p5.js（非模块版） -->\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <title>p5.js + YOHA 示例</title>\n  </head>\n  <body>\n    <main></main>\n    <!-- 使用模块加载方式加载你的 sketch -->\n    <script type=\"module\" src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eb10624c267b113be22d64",
+        "createdAt": "2025-04-01T02:49:56.531Z",
+        "updatedAt": "2025-04-01T02:49:56.531Z",
+        "id": "67eb10624c267b113be22d64"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eb10624c267b113be22d65",
+        "createdAt": "2025-04-01T02:49:56.531Z",
+        "updatedAt": "2025-04-01T02:49:56.531Z",
+        "id": "67eb10624c267b113be22d65"
+      }
+    ],
+    "updatedAt": "2025-04-01T02:49:56.531Z",
+    "createdAt": "2025-03-31T22:02:56.934Z",
+    "id": "v76pQnGV4"
   },
   {
     "_id": "BM8Q0I2qZ",
@@ -2150,6 +2864,284 @@
     "id": "3mge1-Brj"
   },
   {
+    "_id": "1btIlJ-pX",
+    "name": "greenface v1",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67eda96d18a39a9d1227681e",
+          "67eda96d18a39a9d1227681f",
+          "67eda96d18a39a9d12276820"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67eda96d18a39a9d1227681d",
+        "createdAt": "2025-04-04T01:37:47.194Z",
+        "updatedAt": "2025-04-04T01:37:47.194Z",
+        "id": "67eda96d18a39a9d1227681d"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let video;\nlet faceMesh;\nlet faces = [];\nlet triangles;\nlet spreading = false;\nlet spreadRadius = 0;\nlet faceCenter;\n\nfunction preload() {\n\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n}\n\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(640, 480);\n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n\n  faceMesh.detectStart(video, gotFaces);\n  triangles = faceMesh.getTriangles();\n}\n\nfunction draw() {\n  background(0);\n  video.loadPixels();\n\n  if (faces.length > 0) {\n    let face = faces[0];\n    \n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    \n    point(leftMouth.x, leftMouth.y);\n    point(rightMouth.x, rightMouth.y);\n    \n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x,rightMouth.y);\n    \n    if(d >= 80 & !spreading){\n\n      spreading = true;\n      spreadRadius = 0;\n    }\n    \n    if(d < 80 & spreading){\n      spreading = false;\n    }\n    \n    \n    console.log(d)\n\n    let sumX = 0, sumY = 0;\n    for (let kp of face.keypoints) {\n      sumX += kp.x;\n      sumY += kp.y;\n    }\n    faceCenter = createVector(sumX / face.keypoints.length, sumY / face.keypoints.length);\n    \n\n    if (spreading) {\n      spreadRadius += 1;\n    } else {\n\n      if (spreadRadius > 0) {\n        spreadRadius = max(spreadRadius - 1, 0);\n      }\n    }\n    \n    randomSeed(5);\n    beginShape(TRIANGLES);\n    for (let i = 0; i < triangles.length; i++) {\n      let tri = triangles[i];\n      let [a, b, c] = tri;\n      let pointA = face.keypoints[a];\n      let pointB = face.keypoints[b];\n      let pointC = face.keypoints[c];\n\n\n      let cx = (pointA.x + pointB.x + pointC.x) / 3;\n      let cy = (pointA.y + pointB.y + pointC.y) / 3;\n      \n      let everyD = dist(faceCenter.x, faceCenter.y, cx, cy);\n      \n\n      let indexPixel = (floor(cx) + floor(cy) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      let baseColor = color(rr, gg, bb);\n      \n\n      let factor = spreadRadius > 0 ? constrain(1-dist(faceCenter.x, faceCenter.y, cx, cy) / spreadRadius, 0, 1) : 0;\n      \n      // if(frameCount % 37 == 0){\n      //   console.log(factor);\n      // }\n      \n      let finalColor = lerpColor(baseColor, color(0, 255, 0), factor);\n      fill(finalColor);\n      \n      noStroke();\n      vertex(pointA.x, pointA.y);\n      vertex(pointB.x, pointB.y);\n      vertex(pointC.x, pointC.y);\n    }\n    endShape();\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67eda96d18a39a9d1227681f",
+        "createdAt": "2025-04-04T01:37:47.194Z",
+        "updatedAt": "2025-04-04T01:37:47.194Z",
+        "id": "67eda96d18a39a9d1227681f"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eda96d18a39a9d1227681e",
+        "createdAt": "2025-04-04T01:37:47.194Z",
+        "updatedAt": "2025-04-04T01:37:47.194Z",
+        "id": "67eda96d18a39a9d1227681e"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eda96d18a39a9d12276820",
+        "createdAt": "2025-04-04T01:37:47.194Z",
+        "updatedAt": "2025-04-04T01:37:47.194Z",
+        "id": "67eda96d18a39a9d12276820"
+      }
+    ],
+    "createdAt": "2025-04-02T21:17:36.737Z",
+    "updatedAt": "2025-04-04T01:37:47.194Z",
+    "id": "1btIlJ-pX"
+  },
+  {
+    "_id": "a49m87_MV",
+    "name": "greenface v2",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67edadaa18a39a9d12276822",
+          "67ee1f7b9b68963c57d35ea0",
+          "67ee20d189a1abd250988109",
+          "67edadaa18a39a9d12276823",
+          "67edadaa18a39a9d12276824"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67edadaa18a39a9d12276821",
+        "createdAt": "2025-04-04T02:01:23.452Z",
+        "updatedAt": "2025-04-04T02:01:23.452Z",
+        "id": "67edadaa18a39a9d12276821"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let video;\nlet faceMesh;\nlet faces = [];\nlet triangles;\nlet spreading = false;\nlet spreadRadius = 200;\nlet faceCenter;\nlet smile = 70;\nlet speed = 1.5;\n\nvar inc = 0.1;\nvar scl = 20;\nvar cols, rows;\nvar zoff = 0;\nvar fr;\nvar particles = [];\nvar flowfield;\n\n\nfunction preload() {\n  // 加载 FaceMesh 模型，最多检测1张脸，翻转视频输入\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n  mirror= loadImage(\"mirror.png\");\n}\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(600,800);\n  mirrorLayer = createGraphics(width, height);\n  mirrorLayer.image(mirror, 0, 0);\n  bgLayer = createGraphics(width, height);\n  flameLayer = createGraphics(width, height);\n  \n  \n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  faceMesh.detectStart(video, gotFaces);\n  triangles = faceMesh.getTriangles();\n  \n  cols = floor(width / scl);\n  rows = floor(height / scl);\n  fr = createP('');\n\n  flowfield = new Array(cols * rows);\n\n  for (var i = 0; i < 600; i++) {\n    particles[i] = new Particle();\n  }\n  \n}\n\nfunction draw() {\n  video.loadPixels();\n  \n  bgLayer.background(0);\n  image(bgLayer, 0, 0);\n\n  // flame(flameLayer);\n  // image(flameLayer, 0, 0);\n  \n  if (faces.length > 0) {\n    let face = faces[0];\n    \n    let sumX = 0, sumY = 0;\n    for (let kp of face.keypoints) {\n      sumX += kp.x;\n      sumY += kp.y;\n    }\n    faceCenter = createVector(sumX / face.keypoints.length, sumY / face.keypoints.length);\n    \n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x, rightMouth.y);\n    console.log(d)\n    \n    let maxD = 0;\n    for (let kp of face.keypoints) {\n      let curD = dist(kp.x, kp.y, faceCenter.x, faceCenter.y);\n      if (curD > maxD) {\n        maxD = curD + 80;\n        //spreadRadius = maxD;\n      }\n    }\n    \n    // 使用逻辑与 && 来判断\n    if (d >= smile && !spreading) {\n      spreading = true;\n      spreadRadius = maxD;\n    }\n    if (d < smile && spreading) {\n      spreading = false;\n    }\n    \n    \n    // 根据蔓延状态更新 spreadRadius：\n    if (spreading) {\n      // 开启效果时，逐帧减少 spreadRadius，使得绿色区域逐渐扩展向内\n      spreadRadius = max(spreadRadius - speed, 0);\n    } else {\n      // 关闭效果时，逐帧增加 spreadRadius，最多不超过 maxD，从而逐渐恢复原色\n      spreadRadius = min(spreadRadius + speed, maxD);\n    }\n    \n    randomSeed(5);\n    beginShape(TRIANGLES);\n    for (let i = 0; i < triangles.length; i++) {\n      let tri = triangles[i];\n      let [a, b, c] = tri;\n      let pointA = face.keypoints[a];\n      let pointB = face.keypoints[b];\n      let pointC = face.keypoints[c];\n\n      // 计算三角形的中心\n      let cx = (pointA.x + pointB.x + pointC.x) / 3;\n      let cy = (pointA.y + pointB.y + pointC.y) / 3;\n      \n      // 从视频像素中采样颜色\n      let indexPixel = (floor(cx) + floor(cy) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      let baseColor = color(rr, gg, bb);\n      \n      // 计算三角形中心到脸部中心的距离\n      let everyD = dist(faceCenter.x, faceCenter.y, cx, cy) + 50;\n      let factor = map(everyD, spreadRadius, maxD, 0, 2, true);\n\n      let finalColor = lerpColor(baseColor, color(0, 200, 0), factor);\n      fill(finalColor); \n      \n      noStroke();\n      vertex(pointA.x, pointA.y);\n      vertex(pointB.x, pointB.y);\n      vertex(pointC.x, pointC.y);\n    }\n    \n    if(spreading){\n    flame(flameLayer);\n    image(flameLayer, 0, 0);\n  }\n    endShape();\n  }\n  \n  //image(mirrorLayer,0,0);\n}\n\nfunction flame(pg) {\n  pg.fill(0, 10);  // 10 为 alpha 值，根据需要调整\n  pg.noStroke();\n  pg.rect(0, 0, pg.width, pg.height);\n  \n  pg.push();\n  var yoff = 0;\n  for (var y = 0; y < rows; y++) {\n    var xoff = 0;\n    for (var x = 0; x < cols; x++) {\n      var index = x + y * cols;\n      var angle = noise(xoff, yoff, zoff) * -PI;\n      var v = p5.Vector.fromAngle(angle);\n      v.setMag(1);\n      flowfield[index] = v;\n      xoff += inc;\n      pg.stroke(0, 50);\n\n    }\n    yoff += inc;\n    zoff += 0.0003;\n  }\n  \n  for (var i = 0; i < particles.length; i++) {\n    particles[i].follow(flowfield);\n    particles[i].update();\n    particles[i].edges();\n    particles[i].show(pg);  // 注意：Particle 类的 show() 方法要支持传入绘图对象\n  }\n  pg.pop();\n}\n\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67edadaa18a39a9d12276823",
+        "createdAt": "2025-04-04T02:01:23.452Z",
+        "updatedAt": "2025-04-04T02:01:23.452Z",
+        "id": "67edadaa18a39a9d12276823"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"particle.js\"></script>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67edadaa18a39a9d12276822",
+        "createdAt": "2025-04-04T02:01:23.452Z",
+        "updatedAt": "2025-04-04T02:01:23.452Z",
+        "id": "67edadaa18a39a9d12276822"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67edadaa18a39a9d12276824",
+        "createdAt": "2025-04-04T02:01:23.452Z",
+        "updatedAt": "2025-04-04T02:01:23.452Z",
+        "id": "67edadaa18a39a9d12276824"
+      },
+      {
+        "name": "mirror.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/96d0164c-d084-4fab-9408-46eeb34fa16f.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee1f7b9b68963c57d35ea0",
+        "createdAt": "2025-04-04T02:01:23.452Z",
+        "updatedAt": "2025-04-04T02:01:23.452Z",
+        "id": "67ee1f7b9b68963c57d35ea0"
+      },
+      {
+        "name": "particle.js",
+        "content": "// Daniel Shiffman\n// http://codingtra.in\n// http://patreon.com/codingtrain\n// Code for: https://youtu.be/BjoM9oKOAKY\n\nclass Particle {\n  constructor() {\n    this.pos = createVector(random(width), random(height));\n    this.vel = createVector(0, 0);\n    this.acc = createVector(0, 0);\n    this.maxspeed = 4;\n    this.prevPos = this.pos.copy();\n  }\n\n  update() {\n    this.vel.add(this.acc);\n    this.vel.limit(this.maxspeed);\n    this.pos.add(this.vel);\n    this.acc.mult(0);\n  }\n\n  follow(vectors) {\n    var x = floor(this.pos.x / scl);\n    var y = floor(this.pos.y / scl);\n    var index = x + y * cols;\n    var force = vectors[index];\n    this.applyForce(force);\n  }\n\n  applyForce(force) {\n    this.acc.add(force);\n  }\n\n  show(pg) {\n    if (pg) {\n      pg.stroke(255, 0, 0, 80);\n      pg.strokeWeight(3);\n      pg.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);\n    } else {\n      stroke(120, 0, 0, 100);\n      strokeWeight(3);\n      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);\n    }\n    this.updatePrev();\n  }\n\n  updatePrev() {\n    this.prevPos.x = this.pos.x;\n    this.prevPos.y = this.pos.y;\n  }\n\n  edges() {\n    if (this.pos.x > width) {\n      this.pos.x = 0;\n      this.updatePrev();\n    }\n    if (this.pos.x < 0) {\n      this.pos.x = width;\n      this.updatePrev();\n    }\n    if (this.pos.y > height) {\n      this.pos.y = 0;\n      this.updatePrev();\n    }\n    if (this.pos.y < 0) {\n      this.pos.y = height;\n      this.updatePrev();\n    }\n\n  }\n\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee20d189a1abd250988109",
+        "createdAt": "2025-04-04T02:01:23.452Z",
+        "updatedAt": "2025-04-04T02:01:23.452Z",
+        "id": "67ee20d189a1abd250988109"
+      }
+    ],
+    "createdAt": "2025-04-02T21:35:41.468Z",
+    "updatedAt": "2025-04-04T02:01:23.452Z",
+    "id": "a49m87_MV"
+  },
+  {
+    "_id": "oRAHJX7Sj",
+    "name": "greenface v3",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67ee077318a39a9d12276826",
+          "67ee077318a39a9d12276827",
+          "67ee077318a39a9d12276828"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67ee077318a39a9d12276825",
+        "createdAt": "2025-04-04T14:56:08.319Z",
+        "updatedAt": "2025-04-04T14:56:08.319Z",
+        "id": "67ee077318a39a9d12276825"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let video;\nlet faceMesh;\nlet faces = [];\nlet triangles;\nlet spreading = false;\nlet spreadRadius = 0;\nlet faceCenter;\nlet speed = 2;\n\nfunction preload() {\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n}\n\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(640, 480);\n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  faceMesh.detectStart(video, gotFaces);\n  triangles = faceMesh.getTriangles();\n}\n\nfunction draw() {\n  background(0);\n  video.loadPixels();\n\n  if (faces.length > 0) {\n    let face = faces[0];\n    \n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    \n    point(leftMouth.x, leftMouth.y);\n    point(rightMouth.x, rightMouth.y);\n    \n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x,rightMouth.y);\n    \n    if(d >= 80 & !spreading){\n      spreading = true;\n      spreadRadius = 0;\n    }\n    \n    if(d < 80 & spreading){\n      spreading = false;\n    }\n    \n    \n    console.log(d)\n    \n    let upY = 0;\n    //let upY = 1000;\n    let upX = 0;\n    for (let kp of face.keypoints) {\n      if (kp.y >= upY){\n        upY = kp.y;\n        upX = kp.x;\n      }\n      \n    }\n    \n    if (spreading) {\n      spreadRadius += speed;\n    } else {\n      if (spreadRadius > 0) {\n        spreadRadius = max(spreadRadius - speed, 0);\n      }\n    }\n    \n    randomSeed(5);\n    beginShape(TRIANGLES);\n    for (let i = 0; i < triangles.length; i++) {\n      let tri = triangles[i];\n      let [a, b, c] = tri;\n      let pointA = face.keypoints[a];\n      let pointB = face.keypoints[b];\n      let pointC = face.keypoints[c];\n\n      let cx = (pointA.x + pointB.x + pointC.x) / 3;\n      let cy = (pointA.y + pointB.y + pointC.y) / 3;\n      \n      let everyD = dist(upX, upY, cx, cy);\n      \n      let indexPixel = (floor(cx) + floor(cy) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      let baseColor = color(rr, gg, bb);\n      \n      let factor = spreadRadius > 0 ? constrain(1-dist(upX, upY, cx, cy) / spreadRadius, 0, 1) : 0;\n      \n      // if(frameCount % 37 == 0){\n      //   console.log(factor);\n      // }\n      \n      let finalColor = lerpColor(baseColor, color(0, 255, 0), factor);\n      fill(finalColor);\n      \n      noStroke();\n      vertex(pointA.x, pointA.y);\n      vertex(pointB.x, pointB.y);\n      vertex(pointC.x, pointC.y);\n    }\n    endShape();\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67ee077318a39a9d12276827",
+        "createdAt": "2025-04-04T14:56:08.319Z",
+        "updatedAt": "2025-04-04T14:56:08.319Z",
+        "id": "67ee077318a39a9d12276827"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee077318a39a9d12276826",
+        "createdAt": "2025-04-04T14:56:08.319Z",
+        "updatedAt": "2025-04-04T14:56:08.319Z",
+        "id": "67ee077318a39a9d12276826"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee077318a39a9d12276828",
+        "createdAt": "2025-04-04T14:56:08.319Z",
+        "updatedAt": "2025-04-04T14:56:08.319Z",
+        "id": "67ee077318a39a9d12276828"
+      }
+    ],
+    "createdAt": "2025-04-03T03:58:43.816Z",
+    "updatedAt": "2025-04-04T14:56:08.319Z",
+    "id": "oRAHJX7Sj"
+  },
+  {
+    "_id": "WCPM4XE2A",
+    "name": "greenface v4",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67ee32eb37dabe8774995e0f",
+          "67ee9d2c8931ce92595f1753",
+          "67ee32eb37dabe8774995e11",
+          "67ee32eb37dabe8774995e12",
+          "67ee32eb37dabe8774995e13"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67ee32eb37dabe8774995e0e",
+        "createdAt": "2025-04-04T01:53:37.442Z",
+        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "id": "67ee32eb37dabe8774995e0e"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let video;\nlet faceMesh;\nlet faces = [];\nlet triangles;\nlet spreading = false;\nlet spreadRadius = 200;\nlet faceCenter;\nlet smile = 70;\nlet speed = 1.5;\n\nvar inc = 0.1;\nvar scl = 20;\nvar cols, rows;\nvar zoff = 0;\nvar fr;\nvar particles = [];\nvar flowfield;\n\nlet flameH;\nlet flameAlpha = 0;\n\n\nfunction preload() {\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n  mirror= loadImage(\"mirror.png\");\n}\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(500,700);\n  flame_h = height;\n  mirrorLayer = createGraphics(width, height);\n  mirrorLayer.image(mirror, 0, 0);\n  bgLayer = createGraphics(width, height);\n  flameLayer = createGraphics(width, height);\n  \n  \n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  faceMesh.detectStart(video, gotFaces);\n  triangles = faceMesh.getTriangles();\n  \n  cols = floor(width / scl);\n  rows = floor(height / scl);\n  fr = createP('');\n\n  flowfield = new Array(cols * rows);\n\n  for (var i = 0; i < 600; i++) {\n    particles[i] = new Particle();\n  }\n  \n}\n\nfunction draw() {\n  video.loadPixels();\n  \n  bgLayer.background(0);\n  image(bgLayer, 0, 0);\n\n  // flame(flameLayer);\n  // image(flameLayer, 0, 0);\n  \n  if (faces.length > 0) {\n    let face = faces[0];\n    \n    let sumX = 0, sumY = 0;\n    for (let kp of face.keypoints) {\n      sumX += kp.x;\n      sumY += kp.y;\n    }\n    faceCenter = createVector(sumX / face.keypoints.length, sumY / face.keypoints.length);\n    \n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x, rightMouth.y);\n    console.log(d)\n    \n    let maxD = 0;\n    for (let kp of face.keypoints) {\n      let curD = dist(kp.x, kp.y, faceCenter.x, faceCenter.y);\n      if (curD > maxD) {\n        maxD = curD + 150;\n        //spreadRadius = maxD;\n      }\n    }\n    \n\n    if (d >= smile && !spreading) {\n      spreading = true;\n      spreadRadius = maxD;\n    }\n    if (d < smile && spreading) {\n      spreading = false;\n    }\n    \n\n    if (spreading) {\n      spreadRadius = max(spreadRadius - speed, 0);\n    } else {\n      spreadRadius = min(spreadRadius + speed, maxD);\n      flameH = height - 150;\n    }\n    \n    randomSeed(5);\n    beginShape(TRIANGLES);\n    for (let i = 0; i < triangles.length; i++) {\n      let tri = triangles[i];\n      let [a, b, c] = tri;\n      let pointA = face.keypoints[a];\n      let pointB = face.keypoints[b];\n      let pointC = face.keypoints[c];\n\n      let cx = (pointA.x + pointB.x + pointC.x) / 3;\n      let cy = (pointA.y + pointB.y + pointC.y) / 3;\n\n      let indexPixel = (floor(cx) + floor(cy) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      let baseColor = color(rr, gg, bb);\n\n      let everyD = dist(faceCenter.x, faceCenter.y, cx, cy) + 50;\n      let factor = map(everyD, spreadRadius, maxD, 0, 2, true);\n\n      let finalColor = lerpColor(baseColor, color(0, 200, 0), factor);\n      fill(finalColor); \n      \n      noStroke();\n      vertex(pointA.x, pointA.y);\n      vertex(pointB.x, pointB.y);\n      vertex(pointC.x, pointC.y);\n    }\n    \n    if (spreading) {\n      flame(flameLayer);\n      tint(255, flameAlpha);\n      image(flameLayer, 0, flameH);\n      if(flameH > 0){\n        flameH -= 6;\n        flameAlpha += 1.5;\n      }\n      noTint();\n    } else {\n      flameAlpha = 0;\n    }\n    \n    endShape();\n  }\n  \n  image(mirrorLayer,0,0);\n}\n\nfunction flame(pg) {\n  pg.fill(0, 10);\n  pg.noStroke();\n  pg.rect(0, 0, pg.width, pg.height);\n  \n  pg.push();\n  var yoff = 0;\n  for (var y = 0; y < rows; y++) {\n    var xoff = 0;\n    for (var x = 0; x < cols; x++) {\n      var index = x + y * cols;\n      var angle = noise(xoff, yoff, zoff) * -PI;\n      var v = p5.Vector.fromAngle(angle);\n      v.setMag(1);\n      flowfield[index] = v;\n      xoff += inc;\n      pg.stroke(0, 50);\n\n    }\n    yoff += inc;\n    zoff += 0.0003;\n  }\n  \n  for (var i = 0; i < particles.length; i++) {\n    particles[i].follow(flowfield);\n    particles[i].update();\n    particles[i].edges();\n    particles[i].show(pg);\n  }\n  pg.pop();\n}\n\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67ee32eb37dabe8774995e12",
+        "createdAt": "2025-04-04T01:53:37.442Z",
+        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "id": "67ee32eb37dabe8774995e12"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"particle.js\"></script>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee32eb37dabe8774995e0f",
+        "createdAt": "2025-04-04T01:53:37.442Z",
+        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "id": "67ee32eb37dabe8774995e0f"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee32eb37dabe8774995e13",
+        "createdAt": "2025-04-04T01:53:37.442Z",
+        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "id": "67ee32eb37dabe8774995e13"
+      },
+      {
+        "name": "particle.js",
+        "content": "// Daniel Shiffman\n// http://codingtra.in\n// http://patreon.com/codingtrain\n// Code for: https://youtu.be/BjoM9oKOAKY\n\nclass Particle {\n  constructor() {\n    this.pos = createVector(random(width), random(height));\n    this.vel = createVector(0, 0);\n    this.acc = createVector(0, 0);\n    this.maxspeed = 4;\n    this.prevPos = this.pos.copy();\n  }\n\n  update() {\n    this.vel.add(this.acc);\n    this.vel.limit(this.maxspeed);\n    this.pos.add(this.vel);\n    this.acc.mult(0);\n  }\n\n  follow(vectors) {\n    var x = floor(this.pos.x / scl);\n    var y = floor(this.pos.y / scl);\n    var index = x + y * cols;\n    var force = vectors[index];\n    this.applyForce(force);\n  }\n\n  applyForce(force) {\n    this.acc.add(force);\n  }\n\n  show(pg) {\n    if (pg) {\n      pg.stroke(255, 0, 0, 80);\n      pg.strokeWeight(3);\n      pg.line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);\n    } else {\n      stroke(120, 0, 0, 100);\n      strokeWeight(3);\n      line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);\n    }\n    this.updatePrev();\n  }\n\n  updatePrev() {\n    this.prevPos.x = this.pos.x;\n    this.prevPos.y = this.pos.y;\n  }\n\n  edges() {\n    if (this.pos.x > width) {\n      this.pos.x = 0;\n      this.updatePrev();\n    }\n    if (this.pos.x < 0) {\n      this.pos.x = width;\n      this.updatePrev();\n    }\n    if (this.pos.y > height) {\n      this.pos.y = 0;\n      this.updatePrev();\n    }\n    if (this.pos.y < 0) {\n      this.pos.y = height;\n      this.updatePrev();\n    }\n\n  }\n\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee32eb37dabe8774995e11",
+        "createdAt": "2025-04-04T01:53:37.442Z",
+        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "id": "67ee32eb37dabe8774995e11"
+      },
+      {
+        "name": "mirror.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/93f804f6-b601-49f5-a492-043e723b048e.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ee9d2c8931ce92595f1753",
+        "createdAt": "2025-04-04T01:53:37.442Z",
+        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "id": "67ee9d2c8931ce92595f1753"
+      }
+    ],
+    "createdAt": "2025-04-03T07:04:12.754Z",
+    "updatedAt": "2025-04-04T01:53:37.442Z",
+    "id": "WCPM4XE2A"
+  },
+  {
     "_id": "YEODmeErQ",
     "name": "Icy court",
     "updatedAt": "2024-02-01T04:18:40.652Z",
@@ -2373,6 +3365,63 @@
     "createdAt": "2024-04-22T17:43:33.583Z",
     "updatedAt": "2024-04-29T10:31:42.889Z",
     "id": "UaFX9dTMq"
+  },
+  {
+    "_id": "KcSA0IOMLf",
+    "name": "IMSE_Tornado_Ting copy",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67efe01c7709cb6ec9454d97",
+          "67efe01c7709cb6ec9454d98",
+          "67efe01c7709cb6ec9454d99"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67efe01c7709cb6ec9454d96",
+        "createdAt": "2025-04-04T03:51:55.248Z",
+        "updatedAt": "2025-04-04T03:51:55.248Z",
+        "id": "67efe01c7709cb6ec9454d96"
+      },
+      {
+        "name": "sketch.js",
+        "content": "// Press f/F to enter fullscreen\n// Adapted from my Nature of Code Homework\n// Declare an array to hold dust particles\nlet dust = [];\nlet a;\nlet b;\n\nfunction setup() {\n  createCanvas(windowWidth, windowHeight); // Create a canvas the size of the window\n}\n\nfunction windowResized() {\n  resizeCanvas(windowWidth, windowHeight);\n}\n\nfunction draw() {\n  //background(0); // Set background to black on every frame\nbackground(255);\n  // Add a new dust particle each frame\n  dust.push(new Dust(windowWidth / 2, (9 * windowHeight) / 10));\n\n  // Adjust frame rate depending on mouse state\n  if (mouseIsPressed === true) {\n    frameRate(10); // Slow motion when mouse is pressed\n  } else {\n    frameRate(60); // Normal speed\n  }\n\n  // Loop through all dust particles\n  for (let i = 0; i < dust.length; i++) {\n    let d = dust[i];\n    d.rise(); // Update position\n    d.checkEdges(); // Check if it's off screen\n    d.display(); // Draw the particle\n  }\n\n  // Limit total number of particles to 300\n  while (dust.length > windowHeight/3) {\n    dust.splice(0, 1); // Remove oldest particles\n  }\n\n  // Remove particles that are done\n  for (let i = dust.length - 1; i >= 0; i--) {\n    let d = dust[i];\n    if (d.isDone) {\n      dust.splice(i, 10); // Remove multiple particles if one is marked done\n    }\n  }\n}\n\n// Handle key press for fullscreen\nfunction keyPressed() {\n  if (key === \"f\" || key === \"F\") {\n    let fs = fullscreen();\n    fullscreen(!fs); // Toggle fullscreen mode\n  }\n}\n\n// Define Dust class for individual particles\nclass Dust {\n  constructor(x, y) {\n    this.pos = createVector(x, y); // Position\n    this.vel = createVector(random(-2, 2), 0); // Horizontal velocity\n    this.float = createVector(0, random(-1, 0)); // Vertical upward float\n    this.wind1 = createVector(random(0, 1), random(0, 0.01)); // Wind effect to the left\n    this.wind2 = createVector(random(0, 1), random(-0.01, 0)); // Wind effect to the right\n    this.r = random(0, 255); // Red color value\n    this.g = random(0, 255); // Green color value\n    this.b = random(0, 255); // Blue color value\n    this.t = 90; // Transparency\n  }\n\n  // Update position with floating and wind effects\n  rise() {\n    this.pos.add(this.vel); // Add horizontal movement\n    this.pos.add(this.float); // Add vertical float\n\n    // Apply wind based on position and mouse X\n    if (\n      this.pos.x >\n      width / 2 + ((height - this.pos.y) / (width / 2 - mouseX)) * 10\n    ) {\n      this.vel.sub(this.wind1); // Push to the left\n    }\n    if (\n      this.pos.x <=\n      width / 2 - ((height - this.pos.y) / (mouseX - width / 2)) * 10\n    ) {\n      this.vel.add(this.wind2); // Push to the right\n    }\n  }\n\n  // Check if the particle has exited the screen\n  checkEdges() {\n    if (this.pos.y < windowHeight/10) {\n      this.isDone = true;\n    }\n  }\n\n  // Draw the particle\n  display() {\n    push();\n    //blendMode(ADD); // Additive blending for glowing effect\n    blendMode(MULTIPLY);\n    fill(this.r, this.g, this.b, this.t); // Semi-transparent colored circle\n    noStroke();\n    // Circle size depends on height and current position\n    let normY = max(1, this.pos.y); // Avoid this.pos.y=0\n    let size = log(height / normY) * (windowHeight/50);\n    circle(this.pos.x, this.pos.y, size);\n    pop();\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67efe01c7709cb6ec9454d98",
+        "createdAt": "2025-04-04T03:51:55.248Z",
+        "updatedAt": "2025-04-04T03:51:55.248Z",
+        "id": "67efe01c7709cb6ec9454d98"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67efe01c7709cb6ec9454d97",
+        "createdAt": "2025-04-04T03:51:55.248Z",
+        "updatedAt": "2025-04-04T03:51:55.248Z",
+        "id": "67efe01c7709cb6ec9454d97"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67efe01c7709cb6ec9454d99",
+        "createdAt": "2025-04-04T03:51:55.248Z",
+        "updatedAt": "2025-04-04T03:51:55.248Z",
+        "id": "67efe01c7709cb6ec9454d99"
+      }
+    ],
+    "createdAt": "2025-04-04T13:35:24.664Z",
+    "updatedAt": "2025-04-04T13:35:24.664Z",
+    "id": "KcSA0IOMLf"
   },
   {
     "_id": "lJmOXeMFk",
@@ -2601,6 +3650,89 @@
     ],
     "createdAt": "2024-02-02T02:30:15.034Z",
     "id": "or0ZmD0so"
+  },
+  {
+    "_id": "KSGjY0PEt",
+    "name": "Mei-Name Writing",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67eb67c01ab18472a3f22582",
+          "67eb5977c2e65733618fc670",
+          "67eb5977c2e65733618fc671",
+          "67eb5977c2e65733618fc672",
+          "67ef67831282c94d510b2436"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67eb5977c2e65733618fc66f",
+        "createdAt": "2025-04-04T14:03:23.909Z",
+        "updatedAt": "2025-04-04T14:03:23.909Z",
+        "id": "67eb5977c2e65733618fc66f"
+      },
+      {
+        "name": "sketch.js",
+        "content": "// Hand Pose Painting with ml5.js\n// https://thecodingtrain.com/tracks/ml5js-beginners-guide/ml5/hand-pose\n\nlet video;\nlet handPose;\nlet hands = [];\nlet painting;\nlet px = 0;\nlet py = 0;\n\nlet full_name;\nlet revealAlpha = 0;\n\nlet confirm = false;\n\nfunction preload() {\n  // Initialize HandPose model with flipped video input\n  handPose = ml5.handPose({ flipped: true });\n  mei = loadImage(\"Mei.png\")\n  full_name = loadImage(\"小梅名字.png\");\n}\n\nfunction mousePressed() {\n  console.log(hands);\n}\n\nfunction gotHands(results) {\n  hands = results;\n}\n\nfunction setup() {\n  createCanvas(windowWidth,windowHeight);\n\n  // Create an off-screen graphics buffer for painting\n  painting = createGraphics(windowWidth, windowHeight);\n  painting.clear();\n\n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  // Start detecting hands\n  handPose.detectStart(video, gotHands);\n}\n\nfunction windowResized() {\n  resizeCanvas(windowWidth, windowHeight);\n}\n\nfunction keyPressed() {\n  if (key === \"f\" || key === \"F\") {\n\n    let fs = fullscreen();\n    fullscreen(!fs);\n\n  }\n}\n\nfunction draw() {\n  push();\n  scale(2);\n  image(video, windowWidth/10, windowHeight/10);\n  pop();\n\n  image(mei, 0, 0, width, height);\n  //background(0);\n\n  // Ensure at least one hand is detected\n  if (hands.length > 0) {\n    let hand = hands[0];\n    let index = hand.index_finger_tip;\n    let thumb = hand.thumb_tip;\n    \n    let middle = hand.middle_finger_tip;\n    let ring = hand.ring_finger_tip;\n    let thumb_mcp = hand.thumb_mcp;\n\n    // Compute midpoint between index finger and thumb\n    let x = (index.x + thumb.x) * 0.5;\n    let y = (index.y + thumb.y) * 0.5;\n\n    // Draw only if fingers are close together\n    let d = dist(index.x, index.y, thumb.x, thumb.y);\n    //console.log(d)\n    if (d < 20) {\n      painting.stroke(0);\n      painting.strokeWeight(8);\n      painting.line(px, py, x, y);\n    }\n\n\n    // Update previous position\n    px = x;\n    py = y;\n    \n    let clear_d = dist(index.x, index.y, middle.x, middle.y);\n    //console.log(clear_d);\n    if(clear_d < 30){\n      painting.clear();\n    }else{\n      push();\n      scale(2);\n      noStroke();\n      fill(0);\n      circle(x + windowWidth / 10, y + windowHeight / 10, 10);\n      pop();\n    }\n    \n    let confirm_d = dist(index.x, index.y,thumb_mcp.x, thumb_mcp.y);\n    if(confirm_d < 30){\n       confirm = true;\n    }\n    console.log(confirm);\n\n    if (confirm) {\n      painting.clear();\n      revealAlpha = min(revealAlpha + 5, 255);\n    }\n\n  }\n  \n  // Overlay painting on top of the video\n  push();\n  scale(2);\n  image(painting, windowWidth/10, windowHeight / 10);\n  pop();\n\n  push();\n  tint(255, revealAlpha);\n  image(full_name, 100, -10);\n  noTint();\n  pop();\n  \n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67eb5977c2e65733618fc671",
+        "createdAt": "2025-04-04T14:03:23.909Z",
+        "updatedAt": "2025-04-04T14:03:23.909Z",
+        "id": "67eb5977c2e65733618fc671"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js\"></script>\n    <script src=\"https://unpkg.com/tesseract.js@v2.1.5/dist/tesseract.min.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eb5977c2e65733618fc670",
+        "createdAt": "2025-04-04T14:03:23.909Z",
+        "updatedAt": "2025-04-04T14:03:23.909Z",
+        "id": "67eb5977c2e65733618fc670"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eb5977c2e65733618fc672",
+        "createdAt": "2025-04-04T14:03:23.909Z",
+        "updatedAt": "2025-04-04T14:03:23.909Z",
+        "id": "67eb5977c2e65733618fc672"
+      },
+      {
+        "name": "Mei.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/8d7e0fe2-334d-47f7-a537-ff65892468b6.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67eb67c01ab18472a3f22582",
+        "createdAt": "2025-04-04T14:03:23.909Z",
+        "updatedAt": "2025-04-04T14:03:23.909Z",
+        "id": "67eb67c01ab18472a3f22582"
+      },
+      {
+        "name": "小梅名字.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/d7504d5b-2007-44aa-bce7-367e4a226c12.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ef67831282c94d510b2436",
+        "createdAt": "2025-04-04T14:03:23.909Z",
+        "updatedAt": "2025-04-04T14:03:23.909Z",
+        "id": "67ef67831282c94d510b2436"
+      }
+    ],
+    "createdAt": "2025-04-01T03:11:51.668Z",
+    "updatedAt": "2025-04-04T14:03:23.909Z",
+    "id": "KSGjY0PEt"
   },
   {
     "_id": "4lR9HBGP9",
@@ -5042,6 +6174,63 @@
     "createdAt": "2025-03-07T06:32:52.141Z",
     "updatedAt": "2025-03-07T06:32:52.141Z",
     "id": "R8WWqcOKn"
+  },
+  {
+    "_id": "n24K7JQ6I",
+    "name": "smile detect",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67ed6ef978fd00d0197c6cf1",
+          "67ed6ef978fd00d0197c6cf2",
+          "67ed6ef978fd00d0197c6cf3"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67ed6ef978fd00d0197c6cf0",
+        "createdAt": "2025-04-02T18:26:43.712Z",
+        "updatedAt": "2025-04-02T18:26:43.712Z",
+        "id": "67ed6ef978fd00d0197c6cf0"
+      },
+      {
+        "name": "sketch.js",
+        "content": "// Face Mesh Detection with ml5.js  \n// https://thecodingtrain.com/tracks/ml5js-beginners-guide/ml5/facemesh  \n// https://youtu.be/R5UZsIwPbJA  \n\nlet video;\nlet faceMesh;\nlet faces = [];\nlet smile = false;\nlet noseR = 2;\n\nfunction preload() {\n  // Initialize FaceMesh model with a maximum of one face and flipped video input\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n}\n\nfunction mousePressed() {\n  // Log detected face data tothe console\n  console.log(faces);\n}\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(640, 480);\n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  // Start detecting faces\n  faceMesh.detectStart(video, gotFaces);\n}\n\nfunction draw() {\n  background(0);\n  image(video, 0, 0);\n\n  // Ensure at least one face is detected\n  if (faces.length > 0) {\n    let face = faces[0];\n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    let nose = face.keypoints[4];\n    \n    // point(leftMouth.x, leftMouth.y);\n    // point(rightMouth.x, rightMouth.y);\n    // point(nose.x, nose.y)\n    \n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x,rightMouth.y);\n    console.log(d);\n    \n    if(d >= 80 & !smile){\n      smile = true;\n    }\n    if(d < 80){\n      smile = false;\n    }\n    \n    if(smile){\n      noStroke();\n      fill(255,0,0);\n      circle(nose.x, nose.y, noseR);\n      if(noseR < 60){\n        noseR += 3;\n      }\n    }else{\n      noseR = 0;\n    }\n\n    // Draw keypoints on the detected face\n    for (let i = 0; i < face.keypoints.length; i++) {\n      let keypoint = face.keypoints[i];\n      stroke(255, 255, 0);\n      strokeWeight(2);\n      // textSize(5)\n      // text(i,keypoint.x, keypoint.y)\n      // point(keypoint.x, keypoint.y);\n    }\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67ed6ef978fd00d0197c6cf2",
+        "createdAt": "2025-04-02T18:26:43.712Z",
+        "updatedAt": "2025-04-02T18:26:43.712Z",
+        "id": "67ed6ef978fd00d0197c6cf2"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js\"></script>\n<script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <meta charset=\"utf-8\" />\n  </head>\n  <body>\n    <main></main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ed6ef978fd00d0197c6cf1",
+        "createdAt": "2025-04-02T18:26:43.712Z",
+        "updatedAt": "2025-04-02T18:26:43.712Z",
+        "id": "67ed6ef978fd00d0197c6cf1"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67ed6ef978fd00d0197c6cf3",
+        "createdAt": "2025-04-02T18:26:43.712Z",
+        "updatedAt": "2025-04-02T18:26:43.712Z",
+        "id": "67ed6ef978fd00d0197c6cf3"
+      }
+    ],
+    "createdAt": "2025-04-02T17:08:13.064Z",
+    "updatedAt": "2025-04-02T18:26:43.712Z",
+    "id": "n24K7JQ6I"
   },
   {
     "_id": "5nBvO-8yX",
