@@ -656,6 +656,120 @@
     "id": "JC0w97VGw"
   },
   {
+    "_id": "Rz8EdTg1t",
+    "name": "2025.4.12 ims",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67f8b2dbd2d38912776e01d5",
+          "67f8b2dbd2d38912776e01d6",
+          "67f8b2dbd2d38912776e01d7"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67f8b2dbd2d38912776e01d4",
+        "createdAt": "2025-04-11T13:36:04.392Z",
+        "updatedAt": "2025-04-11T13:36:04.392Z",
+        "id": "67f8b2dbd2d38912776e01d4"
+      },
+      {
+        "name": "sketch.js",
+        "content": "//https://maelynnnn.github.io/ims-2025-Maelyn/2025_4_12_ims_assignment_url/index.html?c=red\nlet video;\nlet handPose;\nlet hands = [];\nlet params = {};\n\nlet fsButton;\n\nfunction preload(){\n  handPose = ml5.handPose();\n}\n\nfunction setup(){\n  createCanvas(windowWidth, windowHeight);\n  \n  fsButton = createButton('Fullscreen');\n  fsButton.position(10, height - 40);\n  fsButton.mousePressed(toggleFullscreen);\n  \n  video = createCapture(VIDEO);\n  video.size(windowWidth, windowHeight);\n  video.hide();\n  \n  handPose.detectStart(video, gotHands);\n  \n  // URL\n  params = get_url_params();\n}\n\nfunction windowResized(){\n  resizeCanvas(windowWidth, windowHeight);\n  fsButton.position(10, height - 40);\n  video.size(windowWidth, windowHeight);\n}\n\nfunction toggleFullscreen(){\n  let fs = fullscreen();\n  fullscreen(!fs);\n  fsButton.html('Fullscreen');\n}\n\nfunction gotHands(results){\n  hands = results;\n}\n\nfunction draw(){\n  background(220);\n  image(video, 0, 0, width, height);\n  \n  // 根change color based on url，default black\n  let ballColor = (params && params.c) ? params.c : \"black\";\n  \n  if(hands.length >= 2){\n    let leftHand = hands[0];\n    let rightHand = hands[1];\n    \n    let dLeft = dist(\n      leftHand.index_finger_tip.x, leftHand.index_finger_tip.y,\n      leftHand.thumb_tip.x, leftHand.thumb_tip.y\n    );\n    let dRight = dist(\n      rightHand.index_finger_tip.x, rightHand.index_finger_tip.y,\n      rightHand.thumb_tip.x, rightHand.thumb_tip.y\n    );\n    \n    let idx_x0 = leftHand.index_finger_tip.x;\n    let idx_y0 = leftHand.index_finger_tip.y;\n    let idx_x1 = rightHand.index_finger_tip.x;\n    let idx_y1 = rightHand.index_finger_tip.y;\n    \n    let num = 50;\n    for(let i = 0; i < num; i++){\n      let percentage = i / num;\n      let x = lerp(idx_x0, idx_x1, percentage);\n      let y = lerp(idx_y0, idx_y1, percentage) + 50 * sin(percentage * TWO_PI + frameCount / 10);\n      // lerp d\n      let d_here = lerp(dLeft, dRight, percentage);\n      noStroke();\n      fill(ballColor);\n      circle(x, y, d_here);\n    }\n  }\n}\n\n// URLSearchParams\nfunction get_url_params(){\n  let query = window.location.search;\n  if(query.length < 1) return {};\n  return params_query(query);\n}\n\nfunction params_query(query){\n  const urlParams = new URLSearchParams(query);\n  return Object.fromEntries(urlParams);\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67f8b2dbd2d38912776e01d6",
+        "createdAt": "2025-04-11T13:36:04.392Z",
+        "updatedAt": "2025-04-11T13:36:04.392Z",
+        "id": "67f8b2dbd2d38912776e01d6"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f8b2dbd2d38912776e01d5",
+        "createdAt": "2025-04-11T13:36:04.392Z",
+        "updatedAt": "2025-04-11T13:36:04.392Z",
+        "id": "67f8b2dbd2d38912776e01d5"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f8b2dbd2d38912776e01d7",
+        "createdAt": "2025-04-11T13:36:04.392Z",
+        "updatedAt": "2025-04-11T13:36:04.392Z",
+        "id": "67f8b2dbd2d38912776e01d7"
+      }
+    ],
+    "createdAt": "2025-04-11T06:12:43.682Z",
+    "updatedAt": "2025-04-11T13:36:04.392Z",
+    "id": "Rz8EdTg1t"
+  },
+  {
+    "_id": "S2Y2UYn-Gf",
+    "name": "2025.4.4 inclass handpose",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67f04345b21f2834faca679e",
+          "67f04345b21f2834faca679d",
+          "67f04345b21f2834faca679f"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67f04345b21f2834faca67a0",
+        "createdAt": "2025-04-04T22:08:10.515Z",
+        "updatedAt": "2025-04-04T22:08:10.515Z",
+        "id": "67f04345b21f2834faca67a0"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let video;\nlet handPose;\nlet hands = [];\n\n\nfunction preload(){\n  handPose = ml5.handPose();\n}\n\nfunction setup() {\n  createCanvas(640, 480);\n  video = createCapture(VIDEO);\n  video.hide();\n  handPose.detectStart(video,gotHands);\n}\n\nfunction gotHands(results){\n  //console.log(results);\n  hands = results;\n}\n\nfunction draw() {\n  background(220);\n  image(video, 0, 0, width, height);\n  if(hands.length >= 2){\n    for(let i = 0; i < hands.length; i ++){\n      const index_x = hands[i].index_finger_tip.x;\n      const index_y = hands[i].index_finger_tip.y;\n      \n      const thumb_x = hands[i].thumb_tip.x;\n      const thumb_y = hands[i].thumb_tip.y;\n      \n      const middle_x = hands[i].middle_finger_tip.x;\n      const middle_y = hands[i].middle_finger_tip.y;\n      //circle(index_x, index_y, 20);\n      //circle(thumb_x, thumb_y, 20);\n\n      d = dist(index_x, index_y, thumb_x, thumb_y);\n      d2 = dist(middle_x, middle_y,index_x, index_y);\n      \n      if(d < 30){\n        textSize(20);\n        fill(0);\n        if(i == 0){\n          text(\"Don't pinch me!\",(index_x + thumb_x)/2 - 50, (index_y+ thumb_y)/2);\n        }else{\n          text(\"Not this side either！\",(index_x + thumb_x)/2 - 50, (index_y+ thumb_y)/2);\n        }\n      }\n      \n      if(d2 < 30){\n        textSize(20);\n        fill(0);\n        if(i == 0){\n          text(\"比划比划？\",(index_x + middle_x)/2 - 50, (index_y+ thumb_y)/2);\n        }else{\n          text(\"这边也来？\",(index_x + middle_x)/2 - 50, (index_y+ thumb_y)/2);\n        }\n      }\n      \n      const idx_x0 = hands[0].index_finger_tip.x;\n      const idx_y0 = hands[0].index_finger_tip.y;\n      const idx_x1 = hands[1].index_finger_tip.x;\n      const idx_y1 = hands[1].index_finger_tip.y;\n      strokeWeight(1);\n      line(idx_x0, idx_y0, idx_x1, idx_y1);\n      \n      const w = idx_x1 - idx_x0;\n      const h = idx_y1 - idx_y0;\n      const num = 50;\n      for(let i = 0; i < num; i ++){\n        const percentage = i/num;\n        const x = map(percentage, 0, 1, idx_x0, idx_x1);\n        const y = map(percentage, 0, 1, idx_y0, idx_y1)+50 * sin(percentage * TWO_PI + frameCount / 10);\n        const d_here = 50;\n        \n        circle(x, y, d);\n      }\n      \n    }\n    console.log(d2);\n  }\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67f04345b21f2834faca679d",
+        "createdAt": "2025-04-04T22:08:10.515Z",
+        "updatedAt": "2025-04-04T22:08:10.515Z",
+        "id": "67f04345b21f2834faca679d"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <script src=\"https://unpkg.com/ml5@1/dist/ml5.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f04345b21f2834faca679e",
+        "createdAt": "2025-04-04T22:08:10.515Z",
+        "updatedAt": "2025-04-04T22:08:10.515Z",
+        "id": "67f04345b21f2834faca679e"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f04345b21f2834faca679f",
+        "createdAt": "2025-04-04T22:08:10.515Z",
+        "updatedAt": "2025-04-04T22:08:10.515Z",
+        "id": "67f04345b21f2834faca679f"
+      }
+    ],
+    "updatedAt": "2025-04-04T22:08:10.515Z",
+    "createdAt": "2025-04-04T20:39:29.050Z",
+    "id": "S2Y2UYn-Gf"
+  },
+  {
     "_id": "aHmLOV_uZ",
     "name": "3.14 Assignment",
     "files": [
@@ -676,8 +790,8 @@
         "fileType": "folder",
         "isSelectedFile": false,
         "_id": "67d34104d741a60431cd9dd9",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d34104d741a60431cd9dd9"
       },
       {
@@ -687,8 +801,8 @@
         "fileType": "file",
         "isSelectedFile": true,
         "_id": "67d34104d741a60431cd9dd6",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d34104d741a60431cd9dd6"
       },
       {
@@ -698,8 +812,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d34104d741a60431cd9dd7",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d34104d741a60431cd9dd7"
       },
       {
@@ -709,8 +823,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d34104d741a60431cd9dd8",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d34104d741a60431cd9dd8"
       },
       {
@@ -721,8 +835,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d3413ad7b473448d128222",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d3413ad7b473448d128222"
       },
       {
@@ -733,8 +847,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d3413ae8e0ff356ad8bd91",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d3413ae8e0ff356ad8bd91"
       },
       {
@@ -745,8 +859,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d3413defe1151482c12814",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d3413defe1151482c12814"
       },
       {
@@ -756,8 +870,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d38d7e5ef54cfb84e5e807",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d38d7e5ef54cfb84e5e807"
       },
       {
@@ -767,8 +881,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d394bb5ef54cfb84e99498",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d394bb5ef54cfb84e99498"
       },
       {
@@ -779,12 +893,12 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67d396fd3b87c5fbb0d66ca3",
-        "createdAt": "2025-03-14T04:28:30.993Z",
-        "updatedAt": "2025-03-14T04:28:30.993Z",
+        "createdAt": "2025-04-09T20:46:50.265Z",
+        "updatedAt": "2025-04-09T20:46:50.265Z",
         "id": "67d396fd3b87c5fbb0d66ca3"
       }
     ],
-    "updatedAt": "2025-03-14T04:28:30.993Z",
+    "updatedAt": "2025-04-09T20:46:50.265Z",
     "createdAt": "2025-03-13T20:33:43.361Z",
     "id": "aHmLOV_uZ"
   },
@@ -1012,6 +1126,120 @@
     "id": "0TD5VT5wE"
   },
   {
+    "_id": "t8wFhNPlY",
+    "name": "没被杰克夸气疯了自己在这做着玩",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67f03efcb21f2834faca6796",
+          "67f03efcb21f2834faca6795",
+          "67f03efcb21f2834faca6797"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67f03efcb21f2834faca6798",
+        "createdAt": "2025-04-06T19:23:59.059Z",
+        "updatedAt": "2025-04-06T19:23:59.059Z",
+        "id": "67f03efcb21f2834faca6798"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let d = 12;\nfunction setup() {\n  createCanvas(640,480);\n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n}\n\nfunction draw() {\n  video.loadPixels();\n  background(120);\n  //image(video, 0, 0);\n  for(let i = 0; i <= width; i += d){\n    for(let j = 0; j <= height; j += d){\n      let indexPixel = ( (i + d/2) + (j + d/2) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      noStroke();\n      fill(rr,gg,bb);\n      //rect(i, j, i+d, j+d);\n      if(rr> 150 && gg> 150 && bb>150){\n        fill(rr,gg,bb);\n        textSize(10);\n        text(\"比\", i, j + d/2);\n      }else{\n        fill(rr,gg,bb);\n        textSize(10);\n        text(\"划\", i, j + d/2);\n      }\n      \n      // push();\n      // if (rr >= gg && rr >= bb) {\n      //   fill(255, 0, 0);\n      // } else if (gg >= rr && gg >= bb) {\n      //   fill(0, 255, 0);\n      // } else {\n      //   fill(0, 0, 255);\n      // }\n      // rect(i, j, d, d);\n      // pop();\n\n      \n      \n    }\n  }\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67f03efcb21f2834faca6795",
+        "createdAt": "2025-04-06T19:23:59.059Z",
+        "updatedAt": "2025-04-06T19:23:59.059Z",
+        "id": "67f03efcb21f2834faca6795"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f03efcb21f2834faca6796",
+        "createdAt": "2025-04-06T19:23:59.059Z",
+        "updatedAt": "2025-04-06T19:23:59.059Z",
+        "id": "67f03efcb21f2834faca6796"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f03efcb21f2834faca6797",
+        "createdAt": "2025-04-06T19:23:59.059Z",
+        "updatedAt": "2025-04-06T19:23:59.059Z",
+        "id": "67f03efcb21f2834faca6797"
+      }
+    ],
+    "updatedAt": "2025-04-06T19:23:59.059Z",
+    "createdAt": "2025-04-04T20:36:51.228Z",
+    "id": "t8wFhNPlY"
+  },
+  {
+    "_id": "GRSXWYunV",
+    "name": "没被杰克夸气疯了自己在这做着玩 copy",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67f2d6d98e62207086917524",
+          "67f2d6d98e62207086917525",
+          "67f2d6d98e62207086917526"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67f2d6d98e62207086917523",
+        "createdAt": "2025-04-11T15:29:43.373Z",
+        "updatedAt": "2025-04-11T15:29:43.373Z",
+        "id": "67f2d6d98e62207086917523"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let d = 12;\nfunction setup() {\n  createCanvas(640,480);\n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n}\n\nfunction draw() {\n  video.loadPixels();\n  background(120, 10);\n  //image(video, 0, 0);\n  for(let i = 0; i <= width; i += d){\n    for(let j = 0; j <= height; j += d){\n      let indexPixel = ( (i + d/2) + (j + d/2) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      noStroke();\n      fill(rr,gg,bb);\n      //rect(i, j, i+d, j+d);\n      circle(i+ 50 * sin(frameCount / 10), j+d/2 + 50 * cos(frameCount / 10), d);\n      \n      // push();\n      // if (rr >= gg && rr >= bb) {\n      //   fill(255, 0, 0);\n      // } else if (gg >= rr && gg >= bb) {\n      //   fill(0, 255, 0);\n      // } else {\n      //   fill(0, 0, 255);\n      // }\n      // rect(i, j, d, d);\n      // pop();\n\n      \n      \n    }\n  }\n}",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67f2d6d98e62207086917525",
+        "createdAt": "2025-04-11T15:29:43.373Z",
+        "updatedAt": "2025-04-11T15:29:43.373Z",
+        "id": "67f2d6d98e62207086917525"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f2d6d98e62207086917524",
+        "createdAt": "2025-04-11T15:29:43.373Z",
+        "updatedAt": "2025-04-11T15:29:43.373Z",
+        "id": "67f2d6d98e62207086917524"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f2d6d98e62207086917526",
+        "createdAt": "2025-04-11T15:29:43.373Z",
+        "updatedAt": "2025-04-11T15:29:43.373Z",
+        "id": "67f2d6d98e62207086917526"
+      }
+    ],
+    "createdAt": "2025-04-06T19:32:42.815Z",
+    "updatedAt": "2025-04-11T15:29:43.373Z",
+    "id": "GRSXWYunV"
+  },
+  {
     "_id": "bQYvhMbjR",
     "name": "女孩背包",
     "files": [
@@ -1028,8 +1256,8 @@
         "fileType": "folder",
         "isSelectedFile": false,
         "_id": "67eaf7534c267b113be22d5e",
-        "createdAt": "2025-03-31T21:04:54.986Z",
-        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "createdAt": "2025-04-13T21:52:11.713Z",
+        "updatedAt": "2025-04-13T21:52:11.713Z",
         "id": "67eaf7534c267b113be22d5e"
       },
       {
@@ -1039,8 +1267,8 @@
         "fileType": "file",
         "isSelectedFile": true,
         "_id": "67eaf7534c267b113be22d5b",
-        "createdAt": "2025-03-31T21:04:54.986Z",
-        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "createdAt": "2025-04-13T21:52:11.713Z",
+        "updatedAt": "2025-04-13T21:52:11.713Z",
         "id": "67eaf7534c267b113be22d5b"
       },
       {
@@ -1050,8 +1278,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67eaf7534c267b113be22d5c",
-        "createdAt": "2025-03-31T21:04:54.986Z",
-        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "createdAt": "2025-04-13T21:52:11.713Z",
+        "updatedAt": "2025-04-13T21:52:11.713Z",
         "id": "67eaf7534c267b113be22d5c"
       },
       {
@@ -1061,8 +1289,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67eaf7534c267b113be22d5d",
-        "createdAt": "2025-03-31T21:04:54.986Z",
-        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "createdAt": "2025-04-13T21:52:11.713Z",
+        "updatedAt": "2025-04-13T21:52:11.713Z",
         "id": "67eaf7534c267b113be22d5d"
       },
       {
@@ -1073,8 +1301,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67eafa234c267b113be22d60",
-        "createdAt": "2025-03-31T21:04:54.986Z",
-        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "createdAt": "2025-04-13T21:52:11.713Z",
+        "updatedAt": "2025-04-13T21:52:11.713Z",
         "id": "67eafa234c267b113be22d60"
       },
       {
@@ -1085,14 +1313,232 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67eafd4b4c267b113be22d62",
-        "createdAt": "2025-03-31T21:04:54.986Z",
-        "updatedAt": "2025-03-31T21:04:54.986Z",
+        "createdAt": "2025-04-13T21:52:11.713Z",
+        "updatedAt": "2025-04-13T21:52:11.713Z",
         "id": "67eafd4b4c267b113be22d62"
       }
     ],
-    "updatedAt": "2025-03-31T21:04:54.986Z",
+    "updatedAt": "2025-04-13T21:52:11.713Z",
     "createdAt": "2025-03-31T20:39:24.065Z",
     "id": "bQYvhMbjR"
+  },
+  {
+    "_id": "kK22N4wwb",
+    "name": "小梅躲男孩-arduino版",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67f6db79c57284dde2d8674b",
+          "67f6db79c57284dde2d8674c",
+          "67f6db79c57284dde2d8674d",
+          "67f6db79c57284dde2d8674e",
+          "67f6db79c57284dde2d8674f",
+          "67f6db79c57284dde2d86750",
+          "67f6db79c57284dde2d86751"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67f6db79c57284dde2d8674a",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d8674a"
+      },
+      {
+        "name": "sketch.js",
+        "content": "// 全局变量定义\nconst serial = new p5.WebSerial();\nlet portButton;\nlet inData;                   // 用于存储串口接收数据\nlet outByte = 0;\n\nlet player;         // 玩家对象，用圆表示\nlet obstacles = []; // 障碍物数组，每个元素为 { x, y, w, h }，y 为世界坐标\nlet house;          // 终点处的小房子对象 { x, y, w, h }\nlet offset;         // 全局偏移量，表示场景向下移动的距离\nlet gameSpeed;      // 每帧增加的 offset，决定前进速度\nlet endpoint;       // 当 offset 达到该值时，终点（小房子）有效 y 坐标与玩家重合\nlet gameState;      // 游戏状态：\"playing\"、\"countdown\" 或 \"win\"\nlet countdownTime;  // 倒计时时长（秒）\nlet countdownStart; // 记录进入倒计时的时间\nlet book;\nlet hand;\nlet home;\nlet road;\nlet book_control_pos = 0;  // 从 Arduino 接收的 pot 值（0～1023）\nlet s4i2_potValue;        // 此变量说明 Arduino 数据中的 pot 部分\nlet prev_book_control_pos = 0;  // 用于检测变化幅度\n\nfunction preload(){\n  book = loadImage(\"book.png\");\n  hand = loadImage(\"hand.png\");\n  home = loadImage(\"home.png\");\n  road = loadImage(\"road.png\"); // 加载背景图\n}\n\nfunction setup() {\n  createCanvas(windowWidth, windowHeight);\n  \n  // 使图片以中心或左上角为锚点按需绘制\n  imageMode(CENTER);\n  textFont(\"Schoolbell\");\n  \n  // 玩家固定在屏幕下方（例如 y = height - 100）\n  player = {\n    x: width / 2,\n    y: height - 100,\n    r: 20  // 半径 20（直径 40）\n  };\n  \n  offset = 0;\n  gameSpeed = 5;\n  // 设定前进 endpoint 像素后视为到达终点\n  endpoint = 3000;\n  \n  // 游戏初始状态\n  gameState = \"playing\";\n  countdownTime = 3;\n  \n  // 终点小房子：设置在世界坐标中，使得当 offset = endpoint 时，\n  // 小房子的有效 y 坐标 (house.y + offset) 正好与玩家 y 重合\n  house = {\n    x: width / 2 - 40, \n    y: player.y - endpoint,   // 例如 500 - 3000 = -2500\n    w: 80,\n    h: 80\n  };\n  \n  // 初始化障碍物：要求所有障碍物在初始时都位于玩家上方，\n  // 这里将障碍物的 y 值随机设置在 [house.y, player.y - windowHeight] 范围内，\n  // 保证它们从上方向下“落入”画面\n  obstacles = [];\n  let numObs = 20;\n  for (let i = 0; i < numObs; i++) {\n    let obs = {\n      x: random(0, width - 50),\n      y: random(house.y, player.y - windowHeight),\n      w: 50,\n      h: 50\n    };\n    obstacles.push(obs);\n  }\n  \n  if (!navigator.serial) {\n    alert(\"WebSerial is not supported in this browser. Try Chrome or MS Edge.\");\n  }\n  // 如果串口可用，添加连接/断开监听\n  navigator.serial.addEventListener(\"connect\", portConnect);\n  navigator.serial.addEventListener(\"disconnect\", portDisconnect);\n  // 检查已有可用端口\n  serial.getPorts();\n  // 如果没有选中端口，显示选择按钮\n  serial.on(\"noport\", makePortButton);\n  // 有端口时自动打开\n  serial.on(\"portavailable\", openPort);\n  // 处理串口错误：\n  serial.on(\"requesterror\", portError);\n  // 处理串口输入数据：\n  serial.on(\"data\", serialEvent);\n  serial.on(\"close\", makePortButton);\n}\n\nfunction draw() {\n  // 绘制循环背景（纵向滚动）\n  imageMode(CORNER); // 以左上角为锚点绘制背景\n  let bgY = offset % height;\n  image(road, 0, bgY - height, width, height);\n  image(road, 0, bgY, width, height);\n  \n  // 如果游戏处于进行中，更新全局 offset\n  if (gameState === \"playing\") {\n    offset += gameSpeed;\n  }\n  \n  // 绘制“世界”：障碍物和小房子随场景一起向下移动\n  push();\n    translate(0, offset); \n    noStroke();\n    imageMode(CENTER);\n  \n  // 绘制终点小房子（这里适当横向偏移）\n    image(home, house.x - 100, house.y);\n  // 绘制障碍物（用手的图片表示）\n    for (let obs of obstacles) {\n      image(hand, obs.x, obs.y);\n    }\n  pop();\n  \n  // 绘制玩家：固定在屏幕下方，用书的图片表示；\n  // 玩家横向位置由 book_control_pos 控制，通过滑动变阻器获得（0～1023）→映射到屏幕宽度\n  player.x = map(book_control_pos, 0, 1023, windowWidth, 0);\n  push();\n    imageMode(CENTER);\n    image(book, player.x, player.y);\n  pop();\n  \n  // 如果处于\"playing\"状态，进行碰撞检测\n  if (gameState === \"playing\") {\n    // 1. 检测与障碍物碰撞\n    for (let obs of obstacles) {\n      let ox = obs.x;\n      let oy = obs.y + offset;\n      if (player.x + player.r > ox &&\n          player.x - player.r < ox + obs.w &&\n          player.y + player.r > oy &&\n          player.y - player.r < oy + obs.h) {\n        gameState = \"countdown\";\n        countdownStart = millis();\n        break;\n      }\n    }\n    \n    // 2. 检测与小房子碰撞（扩展判定区域）\n    let margin = 200; // 扩充判定区域的边界\n    let hx = house.x - margin;\n    let hy = house.y + offset - margin;\n    let hw = house.w + margin * 2;\n    let hh = house.h + margin;\n    if (player.x + player.r > hx &&\n        player.x - player.r < hx + hw &&\n        player.y + player.r > hy &&\n        player.y - player.r < hy + hh) {\n      gameState = \"win\";\n    }\n    \n    // 3. 如果超过了终点线但没有碰到小房子，则也算失败\n    if ((house.y + offset) > player.y) {\n      gameState = \"win\";\n      countdownStart = millis();\n    }\n  }\n  \n  // 倒计时状态：显示倒计时文本，倒计时结束后重置游戏\n  if (gameState === \"countdown\") {\n    let elapsed = (millis() - countdownStart) / 1000;\n    let timeLeft = max(0, countdownTime - floor(elapsed));\n    push();\n      textSize(50);\n      fill(0);\n      textAlign(CENTER, CENTER);\n      text(\"Oops！Restart in \" + timeLeft + \"s\", width / 2, height / 2);\n    pop();\n    if (elapsed >= countdownTime) {\n      resetGame();\n    }\n  }\n  \n  // 胜利状态：显示“Got Home!”提示\n  if (gameState === \"win\") {\n    push();\n      textSize(50);\n      fill(0);\n      textAlign(CENTER, CENTER);\n      text(\"Got Home!\", width / 2, height / 2);\n    pop();\n  }\n}\n\nfunction resetGame() {\n  gameState = \"playing\";\n  offset = 0;\n  let numObs = 15;\n  obstacles = [];\n  for (let i = 0; i < numObs; i++) {\n    let obs = {\n      x: random(0, width - 50),\n      y: random(house.y, player.y - 100),\n      w: 50,\n      h: 50\n    };\n    obstacles.push(obs);\n  }\n  house = {\n    x: width / 2 - 40,\n    y: player.y - endpoint,\n    w: 80,\n    h: 80\n  };\n}\n\nfunction makePortButton() {\n  portButton = createButton(\"choose port\");\n  portButton.position(10, 10);\n  portButton.mousePressed(choosePort);\n}\n \nfunction choosePort() {\n  if (portButton) portButton.show();\n  serial.requestPort();\n}\n \nfunction openPort() {\n  serial.open().then(initiateSerial);\n  function initiateSerial() {\n    console.log(\"port open\");\n  }\n}\n \nfunction portError(err) {\n  alert(\"Serial port error: \" + err);\n}\n \n// 串口数据事件处理：读取一行数据后，先剔除所有非数字字符，再尝试转换为数字；只有当变化超过 5 时更新\nfunction serialEvent() {\n  let inString = serial.readLine();\n  if (inString) {\n    inString = inString.trim(); // 去掉前后空格或换行\n\n    if (inString.startsWith(\"POT:\")) {\n      // 提取 POT: 后面的数字\n      let valueStr = inString.substring(4).replace(/[^\\d]/g, \"\");\n      if (valueStr.length > 0) {\n        let newVal = Number(valueStr);\n        if (newVal >= 0 && newVal <= 1023) {\n          if (abs(newVal - prev_book_control_pos) > 20) {\n            book_control_pos = newVal;\n            prev_book_control_pos = newVal;\n            // console.log(\"POT value: \" + newVal);\n          }\n        }\n      }\n    }\n  }\n}\n\n \nfunction portConnect() {\n  console.log(\"port connected\");\n  serial.getPorts();\n}\n \nfunction portDisconnect() {\n  serial.close();\n  console.log(\"port disconnected\");\n}\n \nfunction closePort() {\n  serial.close();\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67f6db79c57284dde2d86750",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d86750"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <script src=\"https://unpkg.com/p5-webserial@0.1.1/build/p5.webserial.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Iansui&family=Jersey+25&family=Mansalva&family=Noto+Serif+HK:wght@200..900&family=Schoolbell&family=Sigmar&display=swap\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6db79c57284dde2d8674e",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d8674e"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6db79c57284dde2d86751",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d86751"
+      },
+      {
+        "name": "hand.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/104500b4-0df9-43f3-8de0-28dedc646e0c.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6db79c57284dde2d8674c",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d8674c"
+      },
+      {
+        "name": "book.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/dc7d97ec-a853-434c-bbcb-55f91a516add.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6db79c57284dde2d8674b",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d8674b"
+      },
+      {
+        "name": "road.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/e85d759f-a108-434b-a534-b4554ada7068.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6db79c57284dde2d8674f",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d8674f"
+      },
+      {
+        "name": "home.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/76c1f919-8e44-4b5b-b1f7-30aaecf4ac20.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6db79c57284dde2d8674d",
+        "createdAt": "2025-04-25T19:08:19.108Z",
+        "updatedAt": "2025-04-25T19:08:19.108Z",
+        "id": "67f6db79c57284dde2d8674d"
+      }
+    ],
+    "createdAt": "2025-04-09T20:41:30.349Z",
+    "updatedAt": "2025-04-25T19:08:19.108Z",
+    "id": "kK22N4wwb"
+  },
+  {
+    "_id": "jM0GsZXNj",
+    "name": "小梅躲男孩-mouse版",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67f6d173dc20e7c2e84946ff",
+          "67f6bc12582b715af6c19a0b",
+          "67f6d81cdc20e7c2e84d5235",
+          "67f5e525c2bd3b4b75014e67",
+          "67f6d7d68f60bae4bb0b9bb5",
+          "67f5e525c2bd3b4b75014e66",
+          "67f5e525c2bd3b4b75014e68"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67f5e525c2bd3b4b75014e69",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f5e525c2bd3b4b75014e69"
+      },
+      {
+        "name": "sketch.js",
+        "content": "// 全局变量定义\nlet player;         // 玩家对象，用圆表示\nlet obstacles = []; // 障碍物数组，每个元素为 { x, y, w, h }，y 为世界坐标（在初始时均低于玩家，用于模拟从上方落下）\nlet house;          // 终点处的小房子对象 { x, y, w, h }\nlet offset;         // 全局偏移量，表示场景向下移动的距离\nlet gameSpeed;      // 每帧增加的 offset，决定前进速度\nlet endpoint;       // 当 offset 达到该值时，终点（小房子）有效 y 坐标与玩家重合\nlet gameState;      // 游戏状态：\"playing\"、\"countdown\" 或 \"win\"\nlet countdownTime;  // 倒计时时长（秒）\nlet countdownStart; // 记录进入倒计时的时间\nlet book;\nlet hand;\nlet home;\nlet road;           // 背景图\n\nfunction preload(){\n  book = loadImage(\"book.png\");\n  hand = loadImage(\"hand.png\");\n  home = loadImage(\"home.png\");\n  road = loadImage(\"road.png\"); // 加载背景图\n}\n\nfunction setup() {\n  createCanvas(windowWidth, windowHeight);\n  \n  // 使图片以中心或左上角为锚点按需绘制\n  imageMode(CENTER);\n  textFont(\"Schoolbell\");\n  \n  // 玩家固定在屏幕下方（例如 y = height - 100）\n  player = {\n    x: width / 2,\n    y: height - 100,\n    r: 20  // 半径 20（直径 40）\n  };\n  \n  offset = 0;\n  gameSpeed = 5;\n  // 设定前进 endpoint 像素后视为到达终点\n  endpoint = 3000;\n  \n  // 游戏初始状态\n  gameState = \"playing\";\n  countdownTime = 3;\n  \n  // 终点小房子：设置在世界坐标中，使得当 offset = endpoint 时，\n  // 小房子的有效 y 坐标 (house.y + offset) 正好与玩家 y 重合\n  house = {\n    x: width / 2 - 40, \n    y: player.y - endpoint,   // 例如 500 - 3000 = -2500\n    w: 80,\n    h: 80\n  };\n  \n  // 初始化障碍物：要求所有障碍物在初始时都位于玩家上方（即有效 y < player.y）\n  // 这里将障碍物的 y 值随机设置在 [house.y, player.y - windowHeight] 范围内，\n  // 保证它们从上方向下“落入”画面\n  obstacles = [];\n  let numObs = 20;\n  for (let i = 0; i < numObs; i++) {\n    let obs = {\n      x: random(0, width - 50),\n      y: random(house.y, player.y - windowHeight),\n      w: 50,\n      h: 50\n    };\n    obstacles.push(obs);\n  }\n}\n\nfunction draw() {\n  // 绘制循环背景（纵向滚动）\n  imageMode(CORNER); // 以左上角为锚点绘制背景\n  // 用 offset 作为移动量，但这里取模屏幕高度（或者用 road.height 作为单位，根据你的图片尺寸调整）\n  let bgY = offset % height;\n  image(road, 0, bgY - height, width, height);\n  image(road, 0, bgY, width, height);\n  \n  // 如果游戏处于进行中，更新全局 offset（模拟场景向下移动）\n  if (gameState === \"playing\") {\n    offset += gameSpeed;\n  }\n  \n  // 绘制“世界”：障碍物和小房子随场景一起向下移动\n  push();\n    // 使用 translate 将整个世界下移 offset\n    translate(0, offset);\n    \n    // 绘制障碍物（用手的图片表示）\n    noStroke();\n    for (let obs of obstacles) {\n      imageMode(CENTER);\n      image(hand, obs.x, obs.y);\n    }\n    \n    // 绘制终点小房子\n    image(home, house.x - 100, house.y);\n  pop();\n  \n  // 绘制玩家：固定在屏幕下方，用书的图片表示；\n  // 玩家横向位置由鼠标控制\n  player.x = mouseX;\n  push();\n    imageMode(CENTER);\n    image(book, player.x, player.y);\n  pop();\n  \n  // 如果处于 \"playing\" 状态，进行碰撞检测\n  if (gameState === \"playing\") {\n    // 1. 检测与障碍物碰撞\n    for (let obs of obstacles) {\n      let ox = obs.x;\n      let oy = obs.y + offset;  // 障碍物在屏幕上的实际 y 坐标\n      if (player.x + player.r > ox &&\n          player.x - player.r < ox + obs.w &&\n          player.y + player.r > oy &&\n          player.y - player.r < oy + obs.h) {\n        gameState = \"countdown\";\n        countdownStart = millis();\n        break;\n      }\n    }\n    \n    // 2. 检测与小房子碰撞（胜利条件）\n    let margin = 200; // 扩充判定区域的边界\n    let hx = house.x - margin;\n    let hy = house.y + offset - margin;\n    let hw = house.w + margin * 2;\n    let hh = house.h + margin;\n    if (player.x + player.r > hx &&\n        player.x - player.r < hx + hw &&\n        player.y + player.r > hy &&\n        player.y - player.r < hy + hh) {\n      gameState = \"win\";\n    }\n\n    \n    // 3. 如果超过了终点线但没有碰到小房子，则也算失败（进入倒计时）\n    // 当房子的有效 y 坐标 (house.y + offset) 大于玩家 y 坐标时，\n    // 表示小房子已从玩家上方经过，但玩家未触碰到房子\n    if ((house.y + offset) > player.y) {\n      gameState = \"countdown\";\n      countdownStart = millis();\n    }\n  }\n  \n  // 倒计时状态：显示倒计时文本，倒计时结束后重置游戏\n  if (gameState === \"countdown\") {\n    let elapsed = (millis() - countdownStart) / 1000;\n    let timeLeft = max(0, countdownTime - floor(elapsed));\n    push();\n      textSize(50);\n      fill(0);\n      textAlign(CENTER, CENTER);\n      text(\"Oops！Restart in \" + timeLeft +\"s\", width / 2, height / 2);\n    pop();\n    if (elapsed >= countdownTime) {\n      resetGame();\n    }\n  }\n  \n  // 胜利状态：显示“胜利！”提示\n  if (gameState === \"win\") {\n    push();\n      textSize(50);\n      fill(0);\n      textAlign(CENTER, CENTER);\n      text(\"Got Home!\", width / 2, height / 2);\n    pop();\n  }\n}\n\nfunction resetGame() {\n  // 重置状态、offset 以及重新生成障碍物和小房子\n  gameState = \"playing\";\n  offset = 0;\n  let numObs = 15;\n  obstacles = [];\n  for (let i = 0; i < numObs; i++) {\n    let obs = {\n      x: random(0, width - 50),\n      y: random(house.y, player.y - 100),\n      w: 50,\n      h: 50\n    };\n    obstacles.push(obs);\n  }\n  // 小房子位置不变：house.y = player.y - endpoint\n  house = {\n    x: width / 2 - 40,\n    y: player.y - endpoint,\n    w: 80,\n    h: 80\n  };\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67f5e525c2bd3b4b75014e66",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f5e525c2bd3b4b75014e66"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Iansui&family=Jersey+25&family=Mansalva&family=Noto+Serif+HK:wght@200..900&family=Schoolbell&family=Sigmar&display=swap\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f5e525c2bd3b4b75014e67",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f5e525c2bd3b4b75014e67"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f5e525c2bd3b4b75014e68",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f5e525c2bd3b4b75014e68"
+      },
+      {
+        "name": "hand.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/990530b8-31fb-4f83-89e3-35084b947029.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6bc12582b715af6c19a0b",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f6bc12582b715af6c19a0b"
+      },
+      {
+        "name": "book.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/d01bb97d-582a-4d75-a8bd-6fd3621896f6.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6d173dc20e7c2e84946ff",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f6d173dc20e7c2e84946ff"
+      },
+      {
+        "name": "road.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/a9da7265-f2ae-4592-af74-4c4e98e21f97.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6d7d68f60bae4bb0b9bb5",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f6d7d68f60bae4bb0b9bb5"
+      },
+      {
+        "name": "home.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/8c2e1977-ab68-4ebc-b516-72277b349576.png",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67f6d81cdc20e7c2e84d5235",
+        "createdAt": "2025-04-09T20:41:27.693Z",
+        "updatedAt": "2025-04-09T20:41:27.693Z",
+        "id": "67f6d81cdc20e7c2e84d5235"
+      }
+    ],
+    "updatedAt": "2025-04-09T20:41:27.693Z",
+    "createdAt": "2025-04-09T04:51:23.201Z",
+    "id": "jM0GsZXNj"
   },
   {
     "_id": "qU9tGfn0N",
@@ -3076,19 +3522,19 @@
         "fileType": "folder",
         "isSelectedFile": false,
         "_id": "67ee32eb37dabe8774995e0e",
-        "createdAt": "2025-04-04T01:53:37.442Z",
-        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "createdAt": "2025-04-04T20:05:53.708Z",
+        "updatedAt": "2025-04-04T20:05:53.708Z",
         "id": "67ee32eb37dabe8774995e0e"
       },
       {
         "name": "sketch.js",
-        "content": "let video;\nlet faceMesh;\nlet faces = [];\nlet triangles;\nlet spreading = false;\nlet spreadRadius = 200;\nlet faceCenter;\nlet smile = 70;\nlet speed = 1.5;\n\nvar inc = 0.1;\nvar scl = 20;\nvar cols, rows;\nvar zoff = 0;\nvar fr;\nvar particles = [];\nvar flowfield;\n\nlet flameH;\nlet flameAlpha = 0;\n\n\nfunction preload() {\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n  mirror= loadImage(\"mirror.png\");\n}\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(500,700);\n  flame_h = height;\n  mirrorLayer = createGraphics(width, height);\n  mirrorLayer.image(mirror, 0, 0);\n  bgLayer = createGraphics(width, height);\n  flameLayer = createGraphics(width, height);\n  \n  \n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  faceMesh.detectStart(video, gotFaces);\n  triangles = faceMesh.getTriangles();\n  \n  cols = floor(width / scl);\n  rows = floor(height / scl);\n  fr = createP('');\n\n  flowfield = new Array(cols * rows);\n\n  for (var i = 0; i < 600; i++) {\n    particles[i] = new Particle();\n  }\n  \n}\n\nfunction draw() {\n  video.loadPixels();\n  \n  bgLayer.background(0);\n  image(bgLayer, 0, 0);\n\n  // flame(flameLayer);\n  // image(flameLayer, 0, 0);\n  \n  if (faces.length > 0) {\n    let face = faces[0];\n    \n    let sumX = 0, sumY = 0;\n    for (let kp of face.keypoints) {\n      sumX += kp.x;\n      sumY += kp.y;\n    }\n    faceCenter = createVector(sumX / face.keypoints.length, sumY / face.keypoints.length);\n    \n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x, rightMouth.y);\n    console.log(d)\n    \n    let maxD = 0;\n    for (let kp of face.keypoints) {\n      let curD = dist(kp.x, kp.y, faceCenter.x, faceCenter.y);\n      if (curD > maxD) {\n        maxD = curD + 150;\n        //spreadRadius = maxD;\n      }\n    }\n    \n\n    if (d >= smile && !spreading) {\n      spreading = true;\n      spreadRadius = maxD;\n    }\n    if (d < smile && spreading) {\n      spreading = false;\n    }\n    \n\n    if (spreading) {\n      spreadRadius = max(spreadRadius - speed, 0);\n    } else {\n      spreadRadius = min(spreadRadius + speed, maxD);\n      flameH = height - 150;\n    }\n    \n    randomSeed(5);\n    beginShape(TRIANGLES);\n    for (let i = 0; i < triangles.length; i++) {\n      let tri = triangles[i];\n      let [a, b, c] = tri;\n      let pointA = face.keypoints[a];\n      let pointB = face.keypoints[b];\n      let pointC = face.keypoints[c];\n\n      let cx = (pointA.x + pointB.x + pointC.x) / 3;\n      let cy = (pointA.y + pointB.y + pointC.y) / 3;\n\n      let indexPixel = (floor(cx) + floor(cy) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      let baseColor = color(rr, gg, bb);\n\n      let everyD = dist(faceCenter.x, faceCenter.y, cx, cy) + 50;\n      let factor = map(everyD, spreadRadius, maxD, 0, 2, true);\n\n      let finalColor = lerpColor(baseColor, color(0, 200, 0), factor);\n      fill(finalColor); \n      \n      noStroke();\n      vertex(pointA.x, pointA.y);\n      vertex(pointB.x, pointB.y);\n      vertex(pointC.x, pointC.y);\n    }\n    \n    if (spreading) {\n      flame(flameLayer);\n      tint(255, flameAlpha);\n      image(flameLayer, 0, flameH);\n      if(flameH > 0){\n        flameH -= 6;\n        flameAlpha += 1.5;\n      }\n      noTint();\n    } else {\n      flameAlpha = 0;\n    }\n    \n    endShape();\n  }\n  \n  image(mirrorLayer,0,0);\n}\n\nfunction flame(pg) {\n  pg.fill(0, 10);\n  pg.noStroke();\n  pg.rect(0, 0, pg.width, pg.height);\n  \n  pg.push();\n  var yoff = 0;\n  for (var y = 0; y < rows; y++) {\n    var xoff = 0;\n    for (var x = 0; x < cols; x++) {\n      var index = x + y * cols;\n      var angle = noise(xoff, yoff, zoff) * -PI;\n      var v = p5.Vector.fromAngle(angle);\n      v.setMag(1);\n      flowfield[index] = v;\n      xoff += inc;\n      pg.stroke(0, 50);\n\n    }\n    yoff += inc;\n    zoff += 0.0003;\n  }\n  \n  for (var i = 0; i < particles.length; i++) {\n    particles[i].follow(flowfield);\n    particles[i].update();\n    particles[i].edges();\n    particles[i].show(pg);\n  }\n  pg.pop();\n}\n\n",
+        "content": "let video;\nlet faceMesh;\nlet faces = [];\nlet triangles;\nlet spreading = false;\nlet spreadRadius = 200;\nlet faceCenter;\nlet smile = 70;\nlet speed = 1.5;\n\nvar inc = 0.1;\nvar scl = 20;\nvar cols, rows;\nvar zoff = 0;\nvar fr;\nvar particles = [];\nvar flowfield;\n\nlet flameH;\nlet flameAlpha = 0;\n\n\nfunction preload() {\n  faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: true });\n  mirror= loadImage(\"mirror.png\");\n}\n\nfunction gotFaces(results) {\n  faces = results;\n}\n\nfunction setup() {\n  createCanvas(500,600);\n  flame_h = height;\n  mirrorLayer = createGraphics(width, height);\n  mirrorLayer.image(mirror, 0, 0);\n  bgLayer = createGraphics(width, height);\n  flameLayer = createGraphics(width, height);\n  \n  \n  video = createCapture(VIDEO, { flipped: true });\n  video.hide();\n\n  faceMesh.detectStart(video, gotFaces);\n  triangles = faceMesh.getTriangles();\n  \n  cols = floor(width / scl);\n  rows = floor(height / scl);\n  fr = createP('');\n\n  flowfield = new Array(cols * rows);\n\n  for (var i = 0; i < 600; i++) {\n    particles[i] = new Particle();\n  }\n  \n}\n\nfunction draw() {\n  video.loadPixels();\n  \n  bgLayer.background(0);\n  image(bgLayer, 0, 0);\n\n  // flame(flameLayer);\n  // image(flameLayer, 0, 0);\n  \n  if (faces.length > 0) {\n    let face = faces[0];\n    \n    let sumX = 0, sumY = 0;\n    for (let kp of face.keypoints) {\n      sumX += kp.x;\n      sumY += kp.y;\n    }\n    faceCenter = createVector(sumX / face.keypoints.length, sumY / face.keypoints.length);\n    \n    let leftMouth = face.keypoints[76];\n    let rightMouth = face.keypoints[409];\n    let d = dist(leftMouth.x, leftMouth.y, rightMouth.x, rightMouth.y);\n    console.log(d)\n    \n    let maxD = 0;\n    for (let kp of face.keypoints) {\n      let curD = dist(kp.x, kp.y, faceCenter.x, faceCenter.y);\n      if (curD > maxD) {\n        maxD = curD + 150;\n        //spreadRadius = maxD;\n      }\n    }\n    \n\n    if (d >= smile && !spreading) {\n      spreading = true;\n      spreadRadius = maxD;\n    }\n    if (d < smile && spreading) {\n      spreading = false;\n    }\n    \n\n    if (spreading) {\n      spreadRadius = max(spreadRadius - speed, 0);\n    } else {\n      spreadRadius = min(spreadRadius + speed, maxD);\n      flameH = height - 150;\n    }\n    \n    randomSeed(5);\n    beginShape(TRIANGLES);\n    for (let i = 0; i < triangles.length; i++) {\n      let tri = triangles[i];\n      let [a, b, c] = tri;\n      let pointA = face.keypoints[a];\n      let pointB = face.keypoints[b];\n      let pointC = face.keypoints[c];\n\n      let cx = (pointA.x + pointB.x + pointC.x) / 3;\n      let cy = (pointA.y + pointB.y + pointC.y) / 3;\n\n      let indexPixel = (floor(cx) + floor(cy) * video.width) * 4;\n      let rr = video.pixels[indexPixel];\n      let gg = video.pixels[indexPixel + 1];\n      let bb = video.pixels[indexPixel + 2];\n      let baseColor = color(rr, gg, bb);\n\n      let everyD = dist(faceCenter.x, faceCenter.y, cx, cy) + 50;\n      let factor = map(everyD, spreadRadius, maxD, 0, 2, true);\n\n      let finalColor = lerpColor(baseColor, color(0, 200, 0), factor);\n      fill(finalColor); \n      \n      noStroke();\n      vertex(pointA.x, pointA.y);\n      vertex(pointB.x, pointB.y);\n      vertex(pointC.x, pointC.y);\n    }\n    \n    if (spreading) {\n      flame(flameLayer);\n      tint(255, flameAlpha);\n      image(flameLayer, 0, flameH);\n      if(flameH > 0){\n        flameH -= 6;\n        flameAlpha += 1.5;\n      }\n      noTint();\n    } else {\n      flameAlpha = 0;\n    }\n    \n    endShape();\n  }\n  \n  image(mirrorLayer,0,0);\n}\n\nfunction flame(pg) {\n  pg.fill(0, 10);\n  pg.noStroke();\n  pg.rect(0, 0, pg.width, pg.height);\n  \n  pg.push();\n  var yoff = 0;\n  for (var y = 0; y < rows; y++) {\n    var xoff = 0;\n    for (var x = 0; x < cols; x++) {\n      var index = x + y * cols;\n      var angle = noise(xoff, yoff, zoff) * -PI;\n      var v = p5.Vector.fromAngle(angle);\n      v.setMag(1);\n      flowfield[index] = v;\n      xoff += inc;\n      pg.stroke(0, 50);\n\n    }\n    yoff += inc;\n    zoff += 0.0003;\n  }\n  \n  for (var i = 0; i < particles.length; i++) {\n    particles[i].follow(flowfield);\n    particles[i].update();\n    particles[i].edges();\n    particles[i].show(pg);\n  }\n  pg.pop();\n}\n\n",
         "children": [],
         "fileType": "file",
         "isSelectedFile": true,
         "_id": "67ee32eb37dabe8774995e12",
-        "createdAt": "2025-04-04T01:53:37.442Z",
-        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "createdAt": "2025-04-04T20:05:53.708Z",
+        "updatedAt": "2025-04-04T20:05:53.708Z",
         "id": "67ee32eb37dabe8774995e12"
       },
       {
@@ -3098,8 +3544,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67ee32eb37dabe8774995e0f",
-        "createdAt": "2025-04-04T01:53:37.442Z",
-        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "createdAt": "2025-04-04T20:05:53.708Z",
+        "updatedAt": "2025-04-04T20:05:53.708Z",
         "id": "67ee32eb37dabe8774995e0f"
       },
       {
@@ -3109,8 +3555,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67ee32eb37dabe8774995e13",
-        "createdAt": "2025-04-04T01:53:37.442Z",
-        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "createdAt": "2025-04-04T20:05:53.708Z",
+        "updatedAt": "2025-04-04T20:05:53.708Z",
         "id": "67ee32eb37dabe8774995e13"
       },
       {
@@ -3120,8 +3566,8 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67ee32eb37dabe8774995e11",
-        "createdAt": "2025-04-04T01:53:37.442Z",
-        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "createdAt": "2025-04-04T20:05:53.708Z",
+        "updatedAt": "2025-04-04T20:05:53.708Z",
         "id": "67ee32eb37dabe8774995e11"
       },
       {
@@ -3132,13 +3578,13 @@
         "fileType": "file",
         "isSelectedFile": false,
         "_id": "67ee9d2c8931ce92595f1753",
-        "createdAt": "2025-04-04T01:53:37.442Z",
-        "updatedAt": "2025-04-04T01:53:37.442Z",
+        "createdAt": "2025-04-04T20:05:53.708Z",
+        "updatedAt": "2025-04-04T20:05:53.708Z",
         "id": "67ee9d2c8931ce92595f1753"
       }
     ],
     "createdAt": "2025-04-03T07:04:12.754Z",
-    "updatedAt": "2025-04-04T01:53:37.442Z",
+    "updatedAt": "2025-04-04T20:05:53.708Z",
     "id": "WCPM4XE2A"
   },
   {
@@ -6117,6 +6563,288 @@
     "updatedAt": "2025-03-07T06:08:10.054Z",
     "createdAt": "2025-03-07T06:04:30.555Z",
     "id": "k3ZwJ-LXu"
+  },
+  {
+    "_id": "WmtXSfuUi",
+    "name": "s2i1",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "67fd5ad817ed8ff384183bf2",
+          "67fd5ad3d683d2c1df9ebe94",
+          "67fd36483b3cc65efdb507ce",
+          "67fd5ad417ed8ff38418377c",
+          "67fd5ad48085af2bc4ed12f3",
+          "67fd36483b3cc65efdb507cd",
+          "67fd36483b3cc65efdb507cf"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "67fd36483b3cc65efdb507d0",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd36483b3cc65efdb507d0"
+      },
+      {
+        "name": "sketch.js",
+        "content": "let mount,bg,house,river;\nlet draw_mount = false;\nlet draw_house = false;\nlet draw_river = false;\n\nfunction preload() {\n  bg = loadImage(\"bg.png\")\n  mount = loadImage(\"mount.png\");\n  house = loadImage(\"house.png\");\n  river = loadImage(\"river.png\");\n}\n\nfunction setup() {\n  createCanvas(windowWidth, windowHeight);\n  imageMode(CENTER); \n}\n\nfunction draw() {\n  background(203, 238, 243);\n  image(bg, windowWidth/2, windowHeight / 2);\n  if(draw_mount){\n    image(mount, windowWidth/2, windowHeight/1.5);\n  }\n  if(draw_house){\n    image(house, windowWidth / 1.3, windowHeight/1.3);\n  }\n  if(draw_river){\n    image(river, windowWidth/3, windowHeight/1.2);\n  }\n}\n\nfunction keyPressed() {\n  // 根据按下的键来决定使用哪张图片\n  if (key === '1') {\n    draw_mount = true;\n  } else if (key === '2') {\n    draw_house = true;\n  } else if (key === '3') {\n    draw_river = true;\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "67fd36483b3cc65efdb507cd",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd36483b3cc65efdb507cd"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67fd36483b3cc65efdb507ce",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd36483b3cc65efdb507ce"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "67fd36483b3cc65efdb507cf",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd36483b3cc65efdb507cf"
+      },
+      {
+        "name": "house.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/4f006f40-84e4-4efb-8053-9b7e03cdf2d0.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "67fd5ad3d683d2c1df9ebe94",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd5ad3d683d2c1df9ebe94"
+      },
+      {
+        "name": "mount.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/a72937cb-7bb8-460f-8473-8da2a47a5af0.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "67fd5ad417ed8ff38418377c",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd5ad417ed8ff38418377c"
+      },
+      {
+        "name": "river.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/b6724820-77e5-469c-8ca8-06e7f2a8dc2f.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "67fd5ad48085af2bc4ed12f3",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd5ad48085af2bc4ed12f3"
+      },
+      {
+        "name": "bg.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/87dea2fb-1662-4e9c-b760-66762ea702ff.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "67fd5ad817ed8ff384183bf2",
+        "createdAt": "2025-04-14T20:43:12.161Z",
+        "updatedAt": "2025-04-14T20:43:12.161Z",
+        "id": "67fd5ad817ed8ff384183bf2"
+      }
+    ],
+    "updatedAt": "2025-04-14T20:43:12.161Z",
+    "createdAt": "2025-04-14T16:53:12.988Z",
+    "id": "WmtXSfuUi"
+  },
+  {
+    "_id": "TO7VdiwPk",
+    "name": "s4i3",
+    "files": [
+      {
+        "name": "root",
+        "content": "",
+        "children": [
+          "6802b68d70bdb256eef59e18",
+          "6802b68d3fb039405136a3f7",
+          "6802b66e6f26c2cd078380ed",
+          "6802b68c8205b9ce1cc83467",
+          "6802b68dafd8f0209458a026",
+          "6802b66e6f26c2cd078380f0",
+          "6802b66e6f26c2cd078380f1",
+          "6802b68dafd8f0209458a048",
+          "6802b68eafd8f0209458a055",
+          "6812baf9d906d4751f440978",
+          "6812baf9d906d4751f440987",
+          "6812baf9d906d4751f4409d1",
+          "6812bb023b25b9ce1368a4c2"
+        ],
+        "fileType": "folder",
+        "isSelectedFile": false,
+        "_id": "6802b66e6f26c2cd078380ea",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:06:26.934Z",
+        "id": "6802b66e6f26c2cd078380ea"
+      },
+      {
+        "name": "sketch.js",
+        "content": "// 全局变量定义\nconst serial = new p5.WebSerial();\nlet portButton;\n\nlet teacher_bg, teacher;\nlet boss_bg, boss;\nlet judge_bg, judge;\nlet draw_teacher = false, draw_boss = false, draw_judge = false;\nlet teacherStartTime = 0, bossStartTime = 0, judgeStartTime = 0;\n\nlet s4i3_teacher, s4i3_boss, s4i3_judge;\nlet bgm;\n\nconst time      = 2000;\nconst wait_time =  500;\n\nlet last_s4_1 = 0,\n    last_s4_2 = 0,\n    last_s4_3 = 0;\n\nfunction preload() {\n  teacher_bg = loadImage(\"teacher_bg.png\");\n  teacher    = loadImage(\"teacher.png\");\n  boss_bg    = loadImage(\"boss_bg.png\");\n  boss       = loadImage(\"boss.png\");\n  judge_bg   = loadImage(\"judge_bg.png\");\n  judge      = loadImage(\"judge.png\");\n\n  s4i3_teacher = loadSound(\"s4i3_teacher.mp3\");\n  s4i3_boss    = loadSound(\"s4i3_boss.mp3\");\n  s4i3_judge   = loadSound(\"s4i3_judge.mp3\");\n  bgm          = loadSound(\"bgm.mp3\");\n}\n\nfunction setup() {\n  createCanvas(windowWidth, windowHeight);\n  imageMode(CORNER);\n\n  // 播放背景音乐\n  if (!bgm.isPlaying()) {\n    bgm.setVolume(0.5);\n    bgm.loop();\n  }\n\n  if (!navigator.serial) {\n    noLoop();\n    return;\n  }\n\n  navigator.serial.addEventListener(\"connect\",    () => serial.getPorts());\n  navigator.serial.addEventListener(\"disconnect\", () => serial.close());\n  serial.getPorts();\n\n  serial.on(\"noport\",        makePortButton);\n  serial.on(\"portavailable\", openPort);\n  serial.on(\"requesterror\",  err => alert(\"串口错误: \" + err));\n  serial.on(\"data\",          serialEvent);\n}\n\nfunction draw() {\n  background(0);\n\n  if (draw_teacher) {\n    image(teacher_bg, 0, 0, width, height);\n    let elapsed = millis() - teacherStartTime;\n    if (elapsed > wait_time) {\n      let alpha = constrain(map(elapsed, wait_time, time, 0, 255), 0, 255);\n      push();\n        tint(255, alpha);\n        image(\n          teacher,\n          width / 1.5 - teacher.width / 2,\n          height / 4.1,\n          teacher.width,\n          teacher.height\n        );\n      pop();\n    }\n  }\n\n  if (draw_boss) {\n    image(boss_bg, 0, 0, width, height);\n    let elapsed = millis() - bossStartTime;\n    if (elapsed > wait_time) {\n      let alpha = constrain(map(elapsed, wait_time, time, 0, 255), 0, 255);\n      push();\n        tint(255, alpha);\n        image(\n          boss,\n          width * 0.8 - boss.width / 2,\n          height / 2.3,\n          boss.width,\n          boss.height\n        );\n      pop();\n    }\n  }\n\n  if (draw_judge) {\n    image(judge_bg, 0, 0, width, height);\n    let elapsed = millis() - judgeStartTime;\n    if (elapsed > wait_time) {\n      let alpha = constrain(map(elapsed, wait_time, time, 0, 255), 0, 255);\n      push();\n        tint(255, alpha);\n        image(\n          judge,\n          width / 2 - judge.width / 2,\n          height / 2.1,\n          judge.width,\n          judge.height\n        );\n      pop();\n    }\n  }\n}\n\nfunction makePortButton() {\n  portButton = createButton(\"choose port\");\n  portButton.position(10, 10);\n  portButton.mousePressed(() => serial.requestPort());\n}\n\nfunction openPort() {\n  serial.open().then(() => {\n    console.log(\"port open\");\n    if (portButton) portButton.hide();\n  });\n}\n\nfunction serialEvent() {\n  let inString = serial.readLine().trim();\n  if (!inString) return;\n\n  if (inString.startsWith(\"s4_1:\")) {\n    let v = int(inString.split(\":\"[1]));\n    if (v === 1 && last_s4_1 === 0) {\n      draw_teacher     = true;\n      teacherStartTime = millis();\n      if (!s4i3_teacher.isPlaying()) {\n        s4i3_teacher.play();\n        s4i3_teacher.onended(() => {\n          window.location.href = \"../vd8/vd8.html\";\n        });\n      }\n    }\n    last_s4_1 = v;\n  }\n  else if (inString.startsWith(\"s4_2:\")) {\n    let v = int(inString.split(\":\")[1]);\n    if (v === 1 && last_s4_2 === 0) {\n      draw_boss     = true;\n      bossStartTime = millis();\n      if (!s4i3_boss.isPlaying()) {\n        s4i3_boss.play();\n        s4i3_boss.onended(() => {\n          window.location.href = \"../vd8/vd8.html\";\n        });\n      }\n    }\n    last_s4_2 = v;\n  }\n  else if (inString.startsWith(\"s4_3:\")) {\n    let v = int(inString.split(\":\"[1]));\n    if (v === 1 && last_s4_3 === 0) {\n      draw_judge     = true;\n      judgeStartTime = millis();\n      if (!s4i3_judge.isPlaying()) {\n        s4i3_judge.play();\n        s4i3_judge.onended(() => {\n          window.location.href = \"../vd8/vd8.html\";\n        });\n      }\n    }\n    last_s4_3 = v;\n  }\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": true,
+        "_id": "6802b66e6f26c2cd078380f0",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b66e6f26c2cd078380f0"
+      },
+      {
+        "name": "index.html",
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js\"></script>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n    <meta charset=\"utf-8\" />\n\n  </head>\n  <body>\n    <main>\n    </main>\n    <script src=\"sketch.js\"></script>\n  </body>\n</html>\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "6802b66e6f26c2cd078380ed",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b66e6f26c2cd078380ed"
+      },
+      {
+        "name": "style.css",
+        "content": "html, body {\n  margin: 0;\n  padding: 0;\n}\ncanvas {\n  display: block;\n}\n",
+        "children": [],
+        "fileType": "file",
+        "isSelectedFile": false,
+        "_id": "6802b66e6f26c2cd078380f1",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b66e6f26c2cd078380f1"
+      },
+      {
+        "name": "judge.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/49d3b3ff-d29e-45e5-a7db-d311c71725c7.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "6802b68c8205b9ce1cc83467",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b68c8205b9ce1cc83467"
+      },
+      {
+        "name": "boss.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/850b0e88-8383-4ef1-93b2-c176042d9c58.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "6802b68d70bdb256eef59e18",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b68d70bdb256eef59e18"
+      },
+      {
+        "name": "judge_bg.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/c5a7adfb-9949-4fdc-ab9d-f563c949bb99.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "6802b68dafd8f0209458a026",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b68dafd8f0209458a026"
+      },
+      {
+        "name": "teacher.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/0f0fd78a-64ea-44fe-a9ff-165667cbbcdf.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "6802b68dafd8f0209458a048",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b68dafd8f0209458a048"
+      },
+      {
+        "name": "boss_bg.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/1cde6168-c4fa-4a1a-ac95-83516b0ed10c.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "6802b68d3fb039405136a3f7",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b68d3fb039405136a3f7"
+      },
+      {
+        "name": "teacher_bg.png",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/dfd039c5-0151-4659-b78c-23286725bfc9.png",
+        "children": [],
+        "fileType": "file",
+        "_id": "6802b68eafd8f0209458a055",
+        "createdAt": "2025-05-01T00:03:07.866Z",
+        "updatedAt": "2025-05-01T00:03:07.866Z",
+        "id": "6802b68eafd8f0209458a055"
+      },
+      {
+        "name": "s4i3_boss.mp3",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/2158e4f6-9188-4a79-8b86-60fe1921be07.mp3",
+        "children": [],
+        "fileType": "file",
+        "_id": "6812baf9d906d4751f440978",
+        "createdAt": "2025-05-01T00:06:17.617Z",
+        "updatedAt": "2025-05-01T00:06:17.617Z",
+        "id": "6812baf9d906d4751f440978"
+      },
+      {
+        "name": "s4i3_judge.mp3",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/9d5cadcd-3625-43e5-9211-da5f57b17fb2.mp3",
+        "children": [],
+        "fileType": "file",
+        "_id": "6812baf9d906d4751f440987",
+        "createdAt": "2025-05-01T00:06:17.635Z",
+        "updatedAt": "2025-05-01T00:06:17.635Z",
+        "id": "6812baf9d906d4751f440987"
+      },
+      {
+        "name": "s4i3_teacher.mp3",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/46b3be9b-0a83-45f9-81e8-c5e5a7cb33dd.mp3",
+        "children": [],
+        "fileType": "file",
+        "_id": "6812baf9d906d4751f4409d1",
+        "createdAt": "2025-05-01T00:06:17.925Z",
+        "updatedAt": "2025-05-01T00:06:17.925Z",
+        "id": "6812baf9d906d4751f4409d1"
+      },
+      {
+        "name": "bgm.MP3",
+        "content": "",
+        "url": "https://assets.editor.p5js.org/65bb0ccba920df001a91a2e5/833e9ca9-e5c0-4955-ac09-305075399ae3.MP3",
+        "children": [],
+        "fileType": "file",
+        "_id": "6812bb023b25b9ce1368a4c2",
+        "createdAt": "2025-05-01T00:06:26.920Z",
+        "updatedAt": "2025-05-01T00:06:26.920Z",
+        "id": "6812bb023b25b9ce1368a4c2"
+      }
+    ],
+    "createdAt": "2025-04-18T20:30:40.956Z",
+    "updatedAt": "2025-05-01T00:06:26.934Z",
+    "id": "TO7VdiwPk"
   },
   {
     "_id": "R8WWqcOKn",

@@ -30,7 +30,7 @@ function gotFaces(results) {
 }
 
 function setup() {
-  createCanvas(500,700);
+  createCanvas(500,600);
   flame_h = height;
   mirrorLayer = createGraphics(width, height);
   mirrorLayer.image(mirror, 0, 0);

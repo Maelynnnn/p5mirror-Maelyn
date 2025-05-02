@@ -1,5 +1,5 @@
 # Maelyn p5projects
-[105 sketches 2025-04-04T14:56:08.319Z](./downloads/gen/sketches_recent.md)
+[113 sketches 2025-05-01T00:06:26.934Z](./downloads/gen/sketches_recent.md)
 
 - [2.28 Assignment-IefHIfucU](./p5projects/2.28%20Assignment-IefHIfucU) [[p5js](https://editor.p5js.org/Maelyn/sketches/IefHIfucU)]
 - [2.28 inclass\_1-dQLqmBXg\_](./p5projects/2.28%20inclass_1-dQLqmBXg_) [[p5js](https://editor.p5js.org/Maelyn/sketches/dQLqmBXg_)]
@@ -8,6 +8,8 @@
 - [20240728-intro-ml-arts-7-openai-chat-completion-without-context copy-CHd-oI-UO](./p5projects/20240728-intro-ml-arts-7-openai-chat-completion-without-context%20copy-CHd-oI-UO) [[p5js](https://editor.p5js.org/Maelyn/sketches/CHd-oI-UO)]
 - [20241025-cc-w8-open-weather-api-current-weather copy-zZrx0Gpqk](./p5projects/20241025-cc-w8-open-weather-api-current-weather%20copy-zZrx0Gpqk) [[p5js](https://editor.p5js.org/Maelyn/sketches/zZrx0Gpqk)]
 - [2025.3.21 inclass webcam-JC0w97VGw](./p5projects/2025.3.21%20inclass%20webcam-JC0w97VGw) [[p5js](https://editor.p5js.org/Maelyn/sketches/JC0w97VGw)]
+- [2025.4.12 ims-Rz8EdTg1t](./p5projects/2025.4.12%20ims-Rz8EdTg1t) [[p5js](https://editor.p5js.org/Maelyn/sketches/Rz8EdTg1t)]
+- [2025.4.4 inclass handpose-S2Y2UYn-Gf](./p5projects/2025.4.4%20inclass%20handpose-S2Y2UYn-Gf) [[p5js](https://editor.p5js.org/Maelyn/sketches/2Y2UYn-Gf)]
 - [223 reci-Tm7wlwozE](./p5projects/223%20reci-Tm7wlwozE) [[p5js](https://editor.p5js.org/Maelyn/sketches/Tm7wlwozE)]
 - [227 inclass-VjhyCF0pL](./p5projects/227%20inclass-VjhyCF0pL) [[p5js](https://editor.p5js.org/Maelyn/sketches/VjhyCF0pL)]
 - [3.14 Assignment 2-IjxVymgdJ](./p5projects/3.14%20Assignment%202-IjxVymgdJ) [[p5js](https://editor.p5js.org/Maelyn/sketches/IjxVymgdJ)]
@@ -93,6 +95,8 @@
 - [pure p5.glitch-NZTZJMpI3](./p5projects/pure%20p5.glitch-NZTZJMpI3) [[p5js](https://editor.p5js.org/Maelyn/sketches/NZTZJMpI3)]
 - [reci2 inclass practice-\_PldigYDp](./p5projects/reci2%20inclass%20practice-_PldigYDp) [[p5js](https://editor.p5js.org/Maelyn/sketches/_PldigYDp)]
 - [Ritzy tuba-k3ZwJ-LXu](./p5projects/Ritzy%20tuba-k3ZwJ-LXu) [[p5js](https://editor.p5js.org/Maelyn/sketches/k3ZwJ-LXu)]
+- [s2i1-WmtXSfuUi](./p5projects/s2i1-WmtXSfuUi) [[p5js](https://editor.p5js.org/Maelyn/sketches/WmtXSfuUi)]
+- [s4i3-TO7VdiwPk](./p5projects/s4i3-TO7VdiwPk) [[p5js](https://editor.p5js.org/Maelyn/sketches/TO7VdiwPk)]
 - [serial\_comms\_arduino\_example copy-R8WWqcOKn](./p5projects/serial_comms_arduino_example%20copy-R8WWqcOKn) [[p5js](https://editor.p5js.org/Maelyn/sketches/R8WWqcOKn)]
 - [smile detect-n24K7JQ6I](./p5projects/smile%20detect-n24K7JQ6I) [[p5js](https://editor.p5js.org/Maelyn/sketches/n24K7JQ6I)]
 - [Statuesque taker-5nBvO-8yX](./p5projects/Statuesque%20taker-5nBvO-8yX) [[p5js](https://editor.p5js.org/Maelyn/sketches/5nBvO-8yX)]
@@ -106,3 +110,7 @@
 - [write with good code exe1-QC\_txLeFQ](./p5projects/write%20with%20good%20code%20exe1-QC_txLeFQ) [[p5js](https://editor.p5js.org/Maelyn/sketches/QC_txLeFQ)]
 - [Write with good code final-tTywKXbyH](./p5projects/Write%20with%20good%20code%20final-tTywKXbyH) [[p5js](https://editor.p5js.org/Maelyn/sketches/tTywKXbyH)]
 - [女孩背包-bQYvhMbjR](./p5projects/%E5%A5%B3%E5%AD%A9%E8%83%8C%E5%8C%85-bQYvhMbjR) [[p5js](https://editor.p5js.org/Maelyn/sketches/bQYvhMbjR)]
+- [小梅躲男孩-arduino版-kK22N4wwb](./p5projects/%E5%B0%8F%E6%A2%85%E8%BA%B2%E7%94%B7%E5%AD%A9-arduino%E7%89%88-kK22N4wwb) [[p5js](https://editor.p5js.org/Maelyn/sketches/kK22N4wwb)]
+- [小梅躲男孩-mouse版-jM0GsZXNj](./p5projects/%E5%B0%8F%E6%A2%85%E8%BA%B2%E7%94%B7%E5%AD%A9-mouse%E7%89%88-jM0GsZXNj) [[p5js](https://editor.p5js.org/Maelyn/sketches/jM0GsZXNj)]
+- [没被杰克夸气疯了自己在这做着玩 copy-GRSXWYunV](./p5projects/%E6%B2%A1%E8%A2%AB%E6%9D%B0%E5%85%8B%E5%A4%B8%E6%B0%94%E7%96%AF%E4%BA%86%E8%87%AA%E5%B7%B1%E5%9C%A8%E8%BF%99%E5%81%9A%E7%9D%80%E7%8E%A9%20copy-GRSXWYunV) [[p5js](https://editor.p5js.org/Maelyn/sketches/GRSXWYunV)]
+- [没被杰克夸气疯了自己在这做着玩-t8wFhNPlY](./p5projects/%E6%B2%A1%E8%A2%AB%E6%9D%B0%E5%85%8B%E5%A4%B8%E6%B0%94%E7%96%AF%E4%BA%86%E8%87%AA%E5%B7%B1%E5%9C%A8%E8%BF%99%E5%81%9A%E7%9D%80%E7%8E%A9-t8wFhNPlY) [[p5js](https://editor.p5js.org/Maelyn/sketches/t8wFhNPlY)]

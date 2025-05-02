@@ -1,5 +1,5 @@
 # Sketches for Maelyn
-105 sketches  
+113 sketches  
 [2.28 Assignment](https://editor.p5js.org/Maelyn/sketches/IefHIfucU)<!-- 2025-02-28T22:46:15.717Z -->  
 [2.28 inclass\_1](https://editor.p5js.org/Maelyn/sketches/e7RbDTYdy)<!-- 2025-03-02T17:51:13.365Z -->  
 [2.28 inclass\_1](https://editor.p5js.org/Maelyn/sketches/dQLqmBXg_)<!-- 2025-02-28T23:13:25.053Z -->  
@@ -9,7 +9,9 @@
 [20240728-intro-ml-arts-7-openai-chat-completion-without-context copy](https://editor.p5js.org/Maelyn/sketches/CHd-oI-UO)<!-- 2025-03-14T22:14:48.188Z -->  
 [20241025-cc-w8-open-weather-api-current-weather copy](https://editor.p5js.org/Maelyn/sketches/zZrx0Gpqk)<!-- 2025-03-14T22:25:26.376Z -->  
 [2025.3.21 inclass webcam](https://editor.p5js.org/Maelyn/sketches/JC0w97VGw)<!-- 2025-03-21T21:58:59.130Z -->  
-[3.14 Assignment](https://editor.p5js.org/Maelyn/sketches/aHmLOV_uZ)<!-- 2025-03-14T04:28:30.993Z -->  
+[2025.4.12 ims](https://editor.p5js.org/Maelyn/sketches/Rz8EdTg1t)<!-- 2025-04-11T13:36:04.392Z -->  
+[2025.4.4 inclass handpose](https://editor.p5js.org/Maelyn/sketches/S2Y2UYn-Gf)<!-- 2025-04-04T22:08:10.515Z -->  
+[3.14 Assignment](https://editor.p5js.org/Maelyn/sketches/aHmLOV_uZ)<!-- 2025-04-09T20:46:50.265Z -->  
 [3.14 Assignment 2](https://editor.p5js.org/Maelyn/sketches/IjxVymgdJ)<!-- 2025-03-14T05:32:47.419Z -->  
 [3.8 Assignment](https://editor.p5js.org/Maelyn/sketches/MiULQEtqV)<!-- 2025-03-07T05:28:58.990Z -->  
 [3/22 inclass](https://editor.p5js.org/Maelyn/sketches/0TD5VT5wE)<!-- 2024-03-21T03:46:47.421Z -->  
@@ -42,7 +44,7 @@
 [greenface v1](https://editor.p5js.org/Maelyn/sketches/1btIlJ-pX)<!-- 2025-04-04T01:37:47.194Z -->  
 [greenface v2](https://editor.p5js.org/Maelyn/sketches/a49m87_MV)<!-- 2025-04-04T02:01:23.452Z -->  
 [greenface v3](https://editor.p5js.org/Maelyn/sketches/oRAHJX7Sj)<!-- 2025-04-04T14:56:08.319Z -->  
-[greenface v4](https://editor.p5js.org/Maelyn/sketches/WCPM4XE2A)<!-- 2025-04-04T01:53:37.442Z -->  
+[greenface v4](https://editor.p5js.org/Maelyn/sketches/WCPM4XE2A)<!-- 2025-04-04T20:05:53.708Z -->  
 [Icy court](https://editor.p5js.org/Maelyn/sketches/YEODmeErQ)<!-- 2024-02-01T04:18:40.652Z -->  
 [identity check](https://editor.p5js.org/Maelyn/sketches/D6el0rVx4)<!-- 2024-04-19T04:23:29.028Z -->  
 [identity check v2](https://editor.p5js.org/Maelyn/sketches/bREDKYRIB)<!-- 2024-04-22T17:23:55.912Z -->  
@@ -92,6 +94,8 @@
 [pure p5.glitch](https://editor.p5js.org/Maelyn/sketches/NZTZJMpI3)<!-- 2024-05-01T16:17:01.895Z -->  
 [reci2 inclass practice](https://editor.p5js.org/Maelyn/sketches/_PldigYDp)<!-- 2024-02-04T04:30:12.287Z -->  
 [Ritzy tuba](https://editor.p5js.org/Maelyn/sketches/k3ZwJ-LXu)<!-- 2025-03-07T06:08:10.054Z -->  
+[s2i1](https://editor.p5js.org/Maelyn/sketches/WmtXSfuUi)<!-- 2025-04-14T20:43:12.161Z -->  
+[s4i3](https://editor.p5js.org/Maelyn/sketches/TO7VdiwPk)<!-- 2025-05-01T00:06:26.934Z -->  
 [serial\_comms\_arduino\_example copy](https://editor.p5js.org/Maelyn/sketches/R8WWqcOKn)<!-- 2025-03-07T06:32:52.141Z -->  
 [smile detect](https://editor.p5js.org/Maelyn/sketches/n24K7JQ6I)<!-- 2025-04-02T18:26:43.712Z -->  
 [Statuesque taker](https://editor.p5js.org/Maelyn/sketches/5nBvO-8yX)<!-- 2025-03-09T05:51:32.238Z -->  
@@ -104,4 +108,8 @@
 [try5](https://editor.p5js.org/Maelyn/sketches/caFsBNoU8)<!-- 2024-02-04T04:19:35.046Z -->  
 [write with good code exe1](https://editor.p5js.org/Maelyn/sketches/QC_txLeFQ)<!-- 2025-03-02T18:10:49.362Z -->  
 [Write with good code final](https://editor.p5js.org/Maelyn/sketches/tTywKXbyH)<!-- 2025-03-16T06:22:45.805Z -->  
-[女孩背包](https://editor.p5js.org/Maelyn/sketches/bQYvhMbjR)<!-- 2025-03-31T21:04:54.986Z -->  
+[女孩背包](https://editor.p5js.org/Maelyn/sketches/bQYvhMbjR)<!-- 2025-04-13T21:52:11.713Z -->  
+[小梅躲男孩-arduino版](https://editor.p5js.org/Maelyn/sketches/kK22N4wwb)<!-- 2025-04-25T19:08:19.108Z -->  
+[小梅躲男孩-mouse版](https://editor.p5js.org/Maelyn/sketches/jM0GsZXNj)<!-- 2025-04-09T20:41:27.693Z -->  
+[没被杰克夸气疯了自己在这做着玩](https://editor.p5js.org/Maelyn/sketches/t8wFhNPlY)<!-- 2025-04-06T19:23:59.059Z -->  
+[没被杰克夸气疯了自己在这做着玩 copy](https://editor.p5js.org/Maelyn/sketches/GRSXWYunV)<!-- 2025-04-11T15:29:43.373Z -->  
