@@ -15,18 +15,18 @@ open https://nodejs.org/en/download
 # where p5name is our editor.p5js user name
 # run this bash script in the root of your repo
 
-bin/mirror.sh -- Maelyn
+bin/mirror.sh --user Maelyn
 
 # and then commit changes in github desktop
 
 # remove sketches not present online
-bin/mirror.sh -- Maelyn --clean
+bin/mirror.sh --user Maelyn --clean
 
 # full update, download all projects
-bin/mirror.sh -- Maelyn --full
+bin/mirror.sh --user Maelyn --full
 
 # run in verbose mode to show details of steps for debugging
-bin/mirror.sh -- Maelyn --verbose
+bin/mirror.sh --user Maelyn --verbose
 
 ```
 
@@ -34,11 +34,10 @@ bin/mirror.sh -- Maelyn --verbose
 
 ```
 # Edit this line for your editor.p5js user name
-bin/mirror.sh -- Maelyn
-
-bin/mirror.sh -- Maelyn --clean
-bin/mirror.sh -- Maelyn --full
-bin/mirror.sh -- Maelyn --verbose
+bin/mirror.sh --user Maelyn
+bin/mirror.sh --user Maelyn --clean
+bin/mirror.sh --user Maelyn --full
+bin/mirror.sh --user Maelyn --verbose
 
 ```
 
@@ -112,19 +111,19 @@ Generated listing of editor.p5js projects
 #   and create markdown listing files
 #   only projects updated since last mirror are downloaded
 #
-bin/mirror.sh -- Maelyn
+bin/mirror.sh --user Maelyn
 
 # full update, download all projects
 #
-bin/mirror.sh -- Maelyn --full
+bin/mirror.sh --user Maelyn --full
 
 # run in verbose mode to show details of steps for debugging
 #
-bin/mirror.sh -- Maelyn --verbose
+bin/mirror.sh --user Maelyn --verbose
 
 # remove sketches not present online
 #
-bin/mirror.sh -- Maelyn --clean
+bin/mirror.sh --user Maelyn --clean
 
 ```
 
